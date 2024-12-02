@@ -1,16 +1,118 @@
-// Add a new room
-function addRoom() {
-    alert("Button Clicked")
-    const roomName = prompt("Enter the room name:");
-    const capacity = prompt("Enter the room capacity:");
-    const equipment = prompt("Enter the equipment details (comma-separated):");
+let isAddingRoom = false;
 
-    if (roomName && capacity) {
-        fetch('add_room.php', {
+// Add or submit room
+function addRoom() {
+    const tableBody = document.querySelector('#manage-rooms tbody');
+    
+    // Check if the input row already exists
+    const existingRow = tableBody.querySelector('.new-room-row');
+
+    if (isAddingRoom) {
+        // If input row exists, submit the room details
+        const row = existingRow;
+        const name = row.querySelector('.room-name').value;
+        const capacity = row.querySelector('.room-capacity').value;
+        const equipment = row.querySelector('.room-equipment').value;
+
+        // Validate the data
+        if (name && capacity) {
+            fetch('add_room.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: name,
+                    capacity: capacity,
+                    equipment: equipment
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // After successful save, update the table row with the entered data
+                    row.innerHTML = `
+                        <td>${name}</td>
+                        <td>${capacity}</td>
+                        <td>${equipment}</td>
+                        <td>
+                            <button onclick="editRoom(${data.room_id})">Edit</button>
+                            <button onclick="deleteRoom(${data.room_id})">Delete</button>
+                        </td>
+                    `;
+                    // Reset the "add" mode
+                    isAddingRoom = false;
+                    row.classList.remove('new-room-row');
+                } else {
+                    alert("Failed to add room: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while adding the room.');
+            });
+        } else {
+            alert("Room name and capacity are required.");
+        }
+    } else {
+        // If no row exists, create a new row with input fields for adding a room
+        const row = document.createElement('tr');
+        row.classList.add('new-room-row');
+        
+        row.innerHTML = `
+            <td><input type="text" class="room-name" placeholder="Room Name" /></td>
+            <td><input type="text" class="room-capacity" placeholder="Capacity" /></td>
+            <td><input type="text" class="room-equipment" placeholder="Equipment" /></td>
+            <td>
+                <button onclick="addRoom()">Submit</button>
+                <button onclick="cancelAddRoom(this)">Cancel</button>
+            </td>
+        `;
+        
+        // Append the new row to the table body
+        tableBody.appendChild(row);
+        
+        // Set the flag to indicate we are in adding mode
+        isAddingRoom = true;
+    }
+}
+
+// Cancel adding a new room
+function cancelAddRoom(button) {
+    const row = button.closest('tr');
+    row.remove(); // Remove the row from the table
+    isAddingRoom = false; // Reset the adding mode
+}
+
+// Edit a room directly in the table
+function editRoom(roomId) {
+    const row = document.getElementById('room-row-' + roomId);
+    const nameCell = row.querySelector('.room-name');
+    const capacityCell = row.querySelector('.room-capacity');
+    const equipmentCell = row.querySelector('.room-equipment');
+
+    // Make the cells editable
+    nameCell.innerHTML = `<input type="text" value="${nameCell.innerText}" />`;
+    capacityCell.innerHTML = `<input type="text" value="${capacityCell.innerText}" />`;
+    equipmentCell.innerHTML = `<input type="text" value="${equipmentCell.innerText}" />`;
+
+    // Replace Edit button with Save button
+    row.querySelector('.edit-btn').innerHTML = 'Save';
+    row.querySelector('.edit-btn').setAttribute('onclick', `saveRoom(${roomId})`);
+}
+
+// Save edited room details
+function saveRoom(roomId) {
+    const row = document.getElementById('room-row-' + roomId);
+    const name = row.querySelector('.room-name input').value;
+    const capacity = row.querySelector('.room-capacity input').value;
+    const equipment = row.querySelector('.room-equipment input').value;
+
+    if (name && capacity) {
+        fetch('edit_room.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                name: roomName,
+                room_id: roomId,
+                name: name,
                 capacity: capacity,
                 equipment: equipment
             })
@@ -18,41 +120,20 @@ function addRoom() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert("Room added successfully!");
-                    location.reload();
-                } else {
-                    alert("Failed to add room: " + data.message);
-                }
-            });
-    }
-}
+                    // Update the table with the new values
+                    row.querySelector('.room-name').innerText = name;
+                    row.querySelector('.room-capacity').innerText = capacity;
+                    row.querySelector('.room-equipment').innerText = equipment;
 
-// Edit an existing room
-function editRoom(roomId) {
-    const newName = prompt("Enter the new room name:");
-    const newCapacity = prompt("Enter the new capacity:");
-    const newEquipment = prompt("Enter the updated equipment details (comma-separated):");
-
-    if (newName && newCapacity) {
-        fetch('edit_room.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                room_id: roomId,
-                name: newName,
-                capacity: newCapacity,
-                equipment: newEquipment
-            })
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert("Room updated successfully!");
-                    location.reload();
+                    // Replace Save button with Edit button
+                    row.querySelector('.edit-btn').innerHTML = 'Edit';
+                    row.querySelector('.edit-btn').setAttribute('onclick', `editRoom(${roomId})`);
                 } else {
                     alert("Failed to update room: " + data.message);
                 }
             });
+    } else {
+        alert("Room name and capacity are required.");
     }
 }
 
@@ -68,7 +149,7 @@ function deleteRoom(roomId) {
             .then(data => {
                 if (data.success) {
                     alert("Room deleted successfully!");
-                    location.reload();
+                    document.getElementById('room-row-' + roomId).remove(); // Remove row from table
                 } else {
                     alert("Failed to delete room: " + data.message);
                 }

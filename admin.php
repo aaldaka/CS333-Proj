@@ -15,8 +15,8 @@ $schedules = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $stmt = $pdo->prepare("SELECT b.*, u.name AS user_name, r.name AS room_name FROM bookings b 
                         JOIN users u ON b.user_id = u.user_id 
                         JOIN rooms r ON b.room_id = r.room_id 
-                        WHERE b.start_time >= NOW()
-                        ORDER BY b.start_time ASC");
+                        WHERE b.slot >= NOW()
+                        ORDER BY b.slot ASC");
 $stmt->execute();
 $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -43,34 +43,34 @@ $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </header>
 
 <main>
-    <!-- Room Management -->
-    <section id="manage-rooms">
-        <h2>Manage Rooms</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Room Name</th>
-                    <th>Capacity</th>
-                    <th>Equipment</th>
-                    <th>Actions</th>
+<!-- Room Management -->
+<section id="manage-rooms">
+    <h2>Manage Rooms</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Room Name</th>
+                <th>Capacity</th>
+                <th>Equipment</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($rooms as $room): ?>
+                <tr id="room-row-<?= $room['room_id'] ?>">
+                    <td class="room-name"><?= htmlspecialchars($room['name']) ?></td>
+                    <td class="room-capacity"><?= htmlspecialchars($room['capacity']) ?></td>
+                    <td class="room-equipment"><?= htmlspecialchars($room['equipment']) ?></td>
+                    <td>
+                        <button class="edit-btn" onclick="editRoom(<?= $room['room_id'] ?>)">Edit</button>
+                        <button onclick="deleteRoom(<?= $room['room_id'] ?>)">Delete</button>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($rooms as $room): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($room['name']) ?></td>
-                        <td><?= htmlspecialchars($room['capacity']) ?></td>
-                        <td><?= htmlspecialchars($room['equipment']) ?></td>
-                        <td>
-                            <button onclick="editRoom(<?= $room['room_id'] ?>)">Edit</button>
-                            <button onclick="deleteRoom(<?= $room['room_id'] ?>)">Delete</button>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        <button onclick="addRoom()">Add Room</button>
-    </section>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <button onclick="addRoom()">Add Room</button>
+</section>
 
     <!-- Schedule Management -->
     <section id="manage-schedules">
