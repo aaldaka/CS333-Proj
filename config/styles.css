@@ -106,15 +106,14 @@ h1 {
 
 /* Style for each room box */
 .room-box {
-    display: block;
-    padding: 20px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 20px;
+    text-align: center;
     border-radius: 8px;
-    text-decoration: none;
-    color: inherit;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
 }
 
 .room-box:hover {
@@ -134,6 +133,15 @@ h1 {
     text-decoration: none;
     color: #9B7EBD;
     font-weight: bold;
+}
+
+.room-box a {
+    color: #333;
+    text-decoration: none;
+}
+
+.room-box a:hover {
+    color: #007BFF;
 }
 
 /* Styling for the Toggle Button */
