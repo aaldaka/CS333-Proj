@@ -36,46 +36,9 @@ if (isset($_GET['room_id'])) {
     <!-- the css pico style  -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
     <!-- Link to the external styles.css file -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles2.css">
 
-    <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        height: 100vh;
-        text-align: center;
-    }
-
-    .main-content {
-        width: 80%;
-        max-width: 800px;
-        margin-top: 50px; /* Adjust as needed for spacing */
-    }
-
-    header h1 {
-        font-size: 2em;
-        margin-bottom: 20px;
-    }
-
-    section {
-        margin-top: 30px;
-    }
-
-    p {
-        font-size: 1.2em;
-        margin: 10px 0;
-    }
-
-    .error-message {
-        color: red;
-        font-weight: bold;
-    }
-</style>
-
+    
 </head>
 <body>
 
