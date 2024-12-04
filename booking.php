@@ -12,9 +12,22 @@
         <form action="book_room.php" method="POST">
             <label for="room_id">Select Room</label>
             <select name="room_id" id="room_id" required>
-                <option value="1">Room A</option>
-                <option value="2">Room B</option>
-            </select>
+                <?php
+                // Database connection
+                include 'config/db_config.php';  // Make sure this file sets up the $pdo connection
+                try {
+                    // Fetch all room names and IDs from the rooms table
+                    $stmt = $pdo->query("SELECT id, name FROM rooms ORDER BY name ASC");
+                    $rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                    // Loop through each room and create an option tag
+                    foreach ($rooms as $room) {
+                        echo "<option value=\"{$room['id']}\">" . htmlspecialchars($room['name']) . "</option>";
+                    }
+                } catch (PDOException $e) {
+                    echo "<option disabled>Error loading rooms</option>";
+                }
+                ?>
             
             <label for="date">Date</label>
             <input type="date" name="date" id="date" required>
