@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2024 at 12:11 PM
+-- Generation Time: Nov 26, 2024 at 12:39 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,9 +46,8 @@ CREATE TABLE `bookings` (
   `room_id` int(11) NOT NULL,
   `start_time` datetime NOT NULL,
   `end_time` datetime NOT NULL,
-  `duration` int(11) NOT NULL,
   `status` enum('booked','cancelled') DEFAULT 'booked',
-  `date` date NOT NULL
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -64,15 +63,6 @@ CREATE TABLE `rooms` (
   `equipment` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `rooms`
---
-
-INSERT INTO `rooms` (`room_id`, `name`, `capacity`, `equipment`, `created_at`) VALUES
-(1, '111', 23, 'Projector', '2024-12-03 15:41:08'),
-(3, '3', 90, 'Projector', '2024-12-04 09:42:05'),
-(4, '002', 23, 'SmartB', '2024-12-04 09:57:59');
 
 -- --------------------------------------------------------
 
@@ -120,8 +110,8 @@ ALTER TABLE `admin_actions`
 --
 ALTER TABLE `bookings`
   ADD PRIMARY KEY (`booking_id`),
-  ADD UNIQUE KEY `room_id` (`room_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `room_id` (`room_id`);
 
 --
 -- Indexes for table `rooms`
@@ -163,7 +153,7 @@ ALTER TABLE `bookings`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `room_schedules`
