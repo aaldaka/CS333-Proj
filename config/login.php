@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['user_type'] = $user['user_type'];
-        header("Location: login.php"); // Redirect to another page
+        header("Location: home.php"); // Redirect to another page
         exit;
     } else {
         $error_message = "Invalid email or password.";

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2024 at 12:11 PM
+-- Generation Time: Dec 04, 2024 at 02:04 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,6 +33,18 @@ CREATE TABLE `admin_actions` (
   `action_description` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admin_actions`
+--
+
+INSERT INTO `admin_actions` (`action_id`, `admin_id`, `action_description`, `created_at`) VALUES
+(1, 3, 'Edited room with ID: 1', '2024-12-04 11:51:57'),
+(2, 3, 'Edited room with ID: 9', '2024-12-04 11:59:58'),
+(3, 3, 'Edited room with ID: 4', '2024-12-04 12:00:04'),
+(4, 3, 'Edited room with ID: 4', '2024-12-04 12:11:23'),
+(5, 3, 'Deleted room with ID: 4', '2024-12-04 12:13:49'),
+(6, 3, 'Added new room: 099', '2024-12-04 12:16:39');
 
 -- --------------------------------------------------------
 
@@ -70,9 +82,9 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`room_id`, `name`, `capacity`, `equipment`, `created_at`) VALUES
-(1, '111', 23, 'Projector', '2024-12-03 15:41:08'),
-(3, '3', 90, 'Projector', '2024-12-04 09:42:05'),
-(4, '002', 23, 'SmartB', '2024-12-04 09:57:59');
+(9, '004', 20, 'NE Equipments', '2024-12-04 11:58:40'),
+(10, '123', 5, 'PCS', '2024-12-04 12:16:09'),
+(11, '099', 22, 'NE Equipments', '2024-12-04 12:16:39');
 
 -- --------------------------------------------------------
 
@@ -101,8 +113,19 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `profile_picture` varchar(255) DEFAULT 'default.jpg',
   `user_type` enum('user','admin') DEFAULT 'user',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `gender` enum('Male','Female') DEFAULT NULL,
+  `major` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `profile_picture`, `user_type`, `created_at`, `gender`, `major`) VALUES
+(1, 'alya', '202200000@stu.uob.edu.bh', '$2y$10$qTlI7PRdXNWCIgdOrv1cE.wdoFMXqtvB7b9rInbs9MGV9M17GdQqm', 'default.jpg', 'user', '2024-12-04 11:25:44', NULL, NULL),
+(2, 'aa', '202200001@stu.uob.edu.bh', '$2y$10$ofxSVCgDf0EKgD2FwM/FzOD364dLfChshuMD0BmfnKgUMiJcF5Q8O', 'default.jpg', 'user', '2024-12-04 11:48:12', NULL, NULL),
+(3, 'admin1', '202200001@uob.edu.bh', '$2y$10$SK0X8LcXPu10/UCmqLq5Lep9K0uwKKHQDGEF5dyzqwbsoXYEeaPhW', 'default.jpg', 'admin', '2024-12-04 11:49:20', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -151,7 +174,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_actions`
 --
 ALTER TABLE `admin_actions`
-  MODIFY `action_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `action_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `bookings`
@@ -163,7 +186,7 @@ ALTER TABLE `bookings`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `room_schedules`
@@ -175,7 +198,7 @@ ALTER TABLE `room_schedules`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

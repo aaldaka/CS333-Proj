@@ -21,6 +21,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($password !== $confirm_password) {
         $error_messages[] = "Passwords do not match.";
     }
+    else {
+        $user_type = strpos($_POST['email'], '@stu') !== false ? 'user' : 'admin';
+    }
 
     if (empty($error_messages)) {
         // Hash the password
@@ -34,8 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $error_messages[] = "Email is already registered!";
             } else {
                 // Prepare and execute the insert statement
-                $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-                $stmt->execute([$name, $email, $hashed_password]);
+                $stmt = $pdo->prepare("INSERT INTO users (name, email, password, user_type) VALUES (?, ?, ?, ?)");
+                $stmt->execute([$_POST['name'], $_POST['email'], $hashed_password, $user_type]);
                 $success_message = "Registration successful! You can now log in.";
                 // Redirect to login page after successful registration
                 header("Location: login.php");

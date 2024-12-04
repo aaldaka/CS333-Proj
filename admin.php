@@ -19,6 +19,13 @@ $stmt = $pdo->prepare("SELECT b.*, u.name AS user_name, r.name AS room_name FROM
                         ORDER BY b.start_time ASC");
 $stmt->execute();
 $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Fetch admin logs
+$stmt = $pdo->prepare("SELECT al.*, u.name AS admin_name FROM admin_actions al 
+                        JOIN users u ON al.admin_id = u.user_id 
+                        ORDER BY al.created_at DESC");
+$stmt->execute();
+$adminLogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -43,6 +50,21 @@ $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </header>
 
 <main>
+<!-- 
+<!-- Sidebar -->
+<div class="sidebar">
+    <ul class="sidebar-links">
+        <li><a href="home.php">HOME</a></li>
+        <li><a href="rooms.php">ROOMS</a></li>
+        <li><a href="bookings.php">BOOKINGS</a></li>
+        <li><a href="profile.php">PROFILE</a></li>
+        <li><a href="login.php">LOGOUT</a></li>
+        <!-- Only display Admin link if user_type is admin -->
+        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin'): ?>
+            <li><a href="admin.php">ADMIN</a></li>
+        <?php endif; ?>
+    </ul>
+</div> -->
 <!-- Room Management -->
 <section id="manage-rooms">
     <h2>Manage Rooms</h2>
@@ -131,6 +153,31 @@ $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </tbody>
         </table>
     </section>
+    <!-- Admin Logs Section -->
+<section id="admin-logs">
+    <h2>Admin Logs</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Log ID</th>
+                <th>Admin</th>
+                <th>Action</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($adminLogs as $log): ?>
+                <tr>
+                    <td><?= htmlspecialchars($log['action_id']) ?></td>
+                    <td><?= htmlspecialchars($log['admin_name']) ?></td>
+                    <td><?= htmlspecialchars($log['action_description']) ?></td>
+                    <td><?= htmlspecialchars($log['created_at']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</section>
+
 </main>
 </body>
 </html>

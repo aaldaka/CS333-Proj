@@ -1,4 +1,14 @@
 <?php
+
+// Start session to access session variables
+session_start();
+
+// Redirect to login if user is not logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
+
 // Include database configuration
 include('db_config.php');
 
@@ -36,6 +46,10 @@ try {
         <li><a href="bookings.php">BOOKINGS</a></li>
         <li><a href="profile.php">PROFILE</a></li>
         <li><a href="login.php">LOGOUT</a></li>
+        <!-- Only display Admin link if user_type is admin -->
+        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin'): ?>
+            <li><a href="admin.php">ADMIN</a></li>
+        <?php endif; ?>
     </ul>
 </div>
 
