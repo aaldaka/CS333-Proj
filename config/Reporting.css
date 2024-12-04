@@ -1,0 +1,72 @@
+body{
+    background-color: #ebe5ef;
+}
+
+.chart-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+}
+
+canvas {
+    max-width: 100%;
+    height: auto;
+    width: 45%;
+}
+
+#roomUsagePieChart {
+    width: 400px;
+    height: 400px;
+}
+
+#roomBookingsBarChart {
+    width: 700px;
+    height: 500px;
+}
+
+h2{
+    text-align: center;
+    color: #3B1E54;
+    font-style: italic;
+    padding-top: 20px;
+}
+
+/* Tables Styling */
+.table {
+    width: 70%;
+    border-collapse: collapse;
+    text-align: center;
+    border: 1px solid #9B7EBD;
+    margin: 0 auto;
+}
+
+.table th, 
+.table td {
+    border: 1px solid #9B7EBD;
+    padding: 8px;
+}
+
+.table th {
+    background-color: #9B7EBD;
+    font-weight: bold;
+    color: #000000;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #D4BEE4;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #dad1e0;
+}
+
+.table tbody tr:hover {
+    background-color: #EEEEEE;
+}
+
+.table .no-data {
+    text-align: center;
+    font-style: italic;
+    color: #3B1E54;
+}
