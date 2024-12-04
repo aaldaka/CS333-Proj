@@ -1,3 +1,34 @@
+<?php
+include 'config/db_config.php'; 
+
+// Retrieve room ID from the query string
+$room_id = isset($_GET['room_id']) ? (int) $_GET['room_id'] : null;
+
+if (!$room_id) {
+    header('Location: config/rooms.php');
+    exit('Room ID is missing.');
+}
+
+try {
+    // Fetch room details from the database
+    $query = "SELECT name FROM rooms WHERE room_id = :room_id";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':room_id', $room_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $room = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$room) {
+        header('Location: rooms.php');
+        exit('Room not found.');
+    }
+
+    $room_name = htmlspecialchars($room['name']); // Ensure room name is sanitized
+} catch (PDOException $e) {
+    exit('Error fetching room details: ' . htmlspecialchars($e->getMessage()));
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,13 +39,11 @@
 </head>
 <body>
     <main class="container">
-        <h1>IT College Booking Rooms Service</h1>
+         <h1>Book Room: <?php echo $room_name; ?></h1>
+        <p>Please choose the time and date for <strong><?php echo $room_name; ?></strong>.</p>
         <form action="book_room.php" method="POST">
-            <label for="room_id">Select Room</label>
-            <select name="room_id" id="room_id" required>
-                <option value="1">Room A</option>
-                <option value="2">Room B</option>
-            </select>
+            <!-- Pass room_id as a hidden input -->
+            <input type="hidden" name="room_id" value="<?php echo $room_id; ?>">
             
             <label for="date">Date</label>
             <input type="date" name="date" id="date" required>
