@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2024 at 01:22 PM
+-- Generation Time: Dec 04, 2024 at 12:30 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,8 +46,9 @@ CREATE TABLE `bookings` (
   `room_id` int(11) NOT NULL,
   `start_time` datetime NOT NULL,
   `end_time` datetime NOT NULL,
+  `duration` int(11) NOT NULL,
   `status` enum('booked','cancelled') DEFAULT 'booked',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -63,6 +64,15 @@ CREATE TABLE `rooms` (
   `equipment` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `rooms`
+--
+
+INSERT INTO `rooms` (`room_id`, `name`, `capacity`, `equipment`, `created_at`) VALUES
+(1, '111', 23, 'Projector', '2024-12-03 15:41:08'),
+(3, '3', 90, 'Projector', '2024-12-04 09:42:05'),
+(4, '002', 23, 'SmartB', '2024-12-04 09:57:59');
 
 -- --------------------------------------------------------
 
@@ -91,8 +101,17 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `profile_picture` varchar(255) DEFAULT 'default.jpg',
   `user_type` enum('user','admin') DEFAULT 'user',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `gender` enum('Male','Female') DEFAULT NULL,
+  `major` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `profile_picture`, `user_type`, `created_at`, `gender`, `major`) VALUES
+(1, 'hawra', '202212345@stu.uob.edu.bh', '$2y$10$SMcrfzIaudgWuzjKF20aLOrnygVWNp92gCa5T9nCjHF4t7pMLlF6i', 'default.jpg', 'user', '2024-12-04 11:16:45', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -110,8 +129,8 @@ ALTER TABLE `admin_actions`
 --
 ALTER TABLE `bookings`
   ADD PRIMARY KEY (`booking_id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `room_id` (`room_id`);
+  ADD UNIQUE KEY `room_id` (`room_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `rooms`
@@ -153,7 +172,7 @@ ALTER TABLE `bookings`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `room_schedules`
@@ -165,7 +184,7 @@ ALTER TABLE `room_schedules`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
