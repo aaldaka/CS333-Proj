@@ -1,0 +1,114 @@
+/* General Reset */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+}
+
+/* Color Palette */
+:root {
+    --primary-color: rgb(59, 30, 84);      /* Dark Purple */
+    --secondary-color: rgb(155, 126, 189); /* Medium Purple */
+    --accent-color: rgb(212, 190, 228);    /* Light Purple */
+    --background-color: rgb(238, 238, 238);/* Light Gray */
+}
+
+/* Container Styling */
+main.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Profile Card */
+.profile-card {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Profile Picture */
+.profile-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--accent-color);
+    margin-bottom: 15px;
+}
+
+/* Text Styling */
+.profile-card h1 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.profile-card p {
+    color: var(--secondary-color);
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+.profile-card strong {
+    color: var(--primary-color);
+}
+
+/* Buttons */
+.profile-card a,
+.profile-card button {
+    background-color: var(--primary-color);
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    display: inline-block;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.profile-card a:hover,
+.profile-card button:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Form Styling */
+form label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: var(--secondary-color);
+}
