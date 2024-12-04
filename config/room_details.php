@@ -33,12 +33,10 @@ if (isset($_GET['room_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room Details</title>
-    <!-- the css pico style  -->
+    <!-- Pico CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-    <!-- Link to the external styles.css file -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="styles2.css">
-
-    
 </head>
 <body>
 
@@ -65,28 +63,35 @@ if (isset($_GET['room_id'])) {
     <main>
         <section>
             <?php if (!empty($room)): ?>
-                <h2><?php echo htmlspecialchars($room['name']); ?></h2>
-                <p><strong>Capacity:</strong> <?php echo htmlspecialchars($room['capacity']); ?></p>
-                <p><strong>Equipment:</strong> <?php echo htmlspecialchars($room['equipment']); ?></p>
-                <p><strong>End Date:</strong> <?php echo htmlspecialchars($room['end_date']); ?></p>
-                <p><strong>Duration:</strong> <?php echo htmlspecialchars($room['duration']); ?></p>
-                <p><strong>Created At:</strong> <?php echo htmlspecialchars($room['created_at']); ?></p>
-                <p><strong>Date:</strong> <?php echo htmlspecialchars($room['date']); ?></p>
+                <div class="room-details">
+                    <h2><?php echo htmlspecialchars($room['name']); ?></h2>
+                    <p><strong>Capacity:</strong> <?php echo htmlspecialchars($room['capacity']); ?></p>
+                    <p><strong>Equipment:</strong> <?php echo htmlspecialchars($room['equipment']); ?></p>
+                    <p><strong>End Date:</strong> <?php echo htmlspecialchars($room['end_date']); ?></p>
+                    <p><strong>Duration:</strong> <?php echo htmlspecialchars($room['duration']); ?></p>
+                    <p><strong>Created At:</strong> <?php echo htmlspecialchars($room['created_at']); ?></p>
+                    <p><strong>Date:</strong> <?php echo htmlspecialchars($room['date']); ?></p>
 
-                <h3>Available Timeslots</h3>
-                <?php if (!empty($timeslots)): ?>
-                    <ul>
-                        <?php foreach ($timeslots as $timeslot): ?>
-                            <li><?php echo htmlspecialchars($timeslot['start_time'] . ' - ' . $timeslot['end_time']); ?></li>
-                        <?php endforeach; ?>
-                    </ul>
-                <?php else: ?>
-                    <p>No available timeslots for this room.</p>
-                <?php endif; ?>
+                    <h3>Available Timeslots</h3>
+                    <?php if (!empty($timeslots)): ?>
+                        <ul class="timeslots">
+                            <?php foreach ($timeslots as $timeslot): ?>
+                                <li><?php echo htmlspecialchars($timeslot['start_time'] . ' - ' . $timeslot['end_time']); ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php else: ?>
+                        <p>No available timeslots for this room.</p>
+                    <?php endif; ?>
+                </div>
+                <a href="rooms.php" class="button">Back to Rooms</a>
             <?php elseif (!empty($error)): ?>
-                <p><?php echo $error; ?></p>
+                <div class="error-message">
+                    <p><?php echo htmlspecialchars($error); ?></p>
+                </div>
             <?php else: ?>
-                <p>Room not found.</p>
+                <div class="error-message">
+                    <p>Room not found.</p>
+                </div>
             <?php endif; ?>
         </section>
     </main>
