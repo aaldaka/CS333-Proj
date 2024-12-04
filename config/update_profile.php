@@ -1,4 +1,4 @@
-<?php
+<?php 
 require 'db_config.php';
 session_start();
 
@@ -18,8 +18,13 @@ if (empty($name)) {
     die("Name cannot be empty.");
 }
 
-// Set default profile picture path
-$profilePicPath = 'default.jpg';
+// Fetch current profile picture from the database
+$stmt = $pdo->prepare("SELECT profile_picture FROM users WHERE user_id = :user_id");
+$stmt->execute(['user_id' => $userId]);
+$currentProfilePicture = $stmt->fetchColumn();
+
+// Default to the current picture if no new picture is uploaded
+$profilePicPath = $currentProfilePicture ?: 'default.jpg';
 
 // Handle profile picture upload
 if ($profilePicture && $profilePicture['error'] === UPLOAD_ERR_OK) {
@@ -42,6 +47,11 @@ if ($profilePicture && $profilePicture['error'] === UPLOAD_ERR_OK) {
     // Move the uploaded file
     if (move_uploaded_file($profilePicture['tmp_name'], $targetFile)) {
         $profilePicPath = $fileName;
+
+        // Optional: delete the old profile picture to save storage
+        if ($currentProfilePicture && $currentProfilePicture !== 'default.jpg') {
+            @unlink($uploadDir . $currentProfilePicture);
+        }
     } else {
         die("Failed to upload profile picture.");
     }
@@ -64,5 +74,3 @@ $stmt->execute($params);
 
 header("Location: profile.php");
 exit();
-
-?>
