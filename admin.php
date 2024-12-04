@@ -15,8 +15,8 @@ $schedules = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $stmt = $pdo->prepare("SELECT b.*, u.name AS user_name, r.name AS room_name FROM bookings b 
                         JOIN users u ON b.user_id = u.user_id 
                         JOIN rooms r ON b.room_id = r.room_id 
-                        WHERE b.slot >= NOW()
-                        ORDER BY b.slot ASC");
+                        WHERE b.start_time >= NOW() 
+                        ORDER BY b.start_time ASC");
 $stmt->execute();
 $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -72,36 +72,36 @@ $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <button onclick="addRoom()">Add Room</button>
 </section>
 
-    <!-- Schedule Management -->
-    <section id="manage-schedules">
-        <h2>Manage Room Schedules</h2>
-        <table>
-            <thead>
+    <!-- Schedule Management Section -->
+<section id="manage-schedules">
+    <h2>Manage Room Schedules</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Room Name</th>
+                <th>Day</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($schedules as $schedule): ?>
                 <tr>
-                    <th>Room</th>
-                    <th>Day</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                    <th>Actions</th>
+                    <td><?= htmlspecialchars($schedule['room_name']) ?></td>
+                    <td><?= htmlspecialchars($schedule['day_of_week']) ?></td>
+                    <td><?= htmlspecialchars($schedule['start_time']) ?></td>
+                    <td><?= htmlspecialchars($schedule['end_time']) ?></td>
+                    <td>
+                        <button onclick="editScheduleRow(this.closest('tr'), <?= $schedule['schedule_id'] ?>)">Edit</button>
+                        <button onclick="deleteSchedule(<?= $schedule['schedule_id'] ?>)">Delete</button>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($schedules as $schedule): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($schedule['room_name']) ?></td>
-                        <td><?= htmlspecialchars($schedule['day_of_week']) ?></td>
-                        <td><?= htmlspecialchars($schedule['start_time']) ?></td>
-                        <td><?= htmlspecialchars($schedule['end_time']) ?></td>
-                        <td>
-                            <button onclick="editSchedule(<?= $schedule['schedule_id'] ?>)">Edit</button>
-                            <button onclick="deleteSchedule(<?= $schedule['schedule_id'] ?>)">Delete</button>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        <button onclick="addSchedule()">Add Schedule</button>
-    </section>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <button onclick="addScheduleRow()">Add Schedule</button>
+</section>
 
     <!-- Upcoming Bookings -->
     <section id="admin-logs">

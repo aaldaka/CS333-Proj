@@ -1,6 +1,6 @@
+// Add or submit room
 let isAddingRoom = false;
 
-// Add or submit room
 function addRoom() {
     const tableBody = document.querySelector('#manage-rooms tbody');
     
@@ -12,17 +12,30 @@ function addRoom() {
         const row = existingRow;
         const name = row.querySelector('.room-name').value;
         const capacity = row.querySelector('.room-capacity').value;
-        const equipment = row.querySelector('.room-equipment').value;
+
+        // Collect selected equipment
+        const selectedEquipments = [];
+        row.querySelectorAll('.room-equipment input:checked').forEach(checkbox => {
+            selectedEquipments.push(checkbox.value);
+        });
 
         // Validate the data
-        if (name && capacity) {
+        if (name.trim() === '' || name.trim()>299 || name.trim()<1){
+            alert("Room name cannot be empty")
+        } else if(name.trim()>299 || name.trim()<1){
+            alert("Room range is 001-299 only") 
+        } else if (selectedEquipments.length === 0) {
+            alert("You need to select at least one equipment.");
+        } else if (selectedEquipments.length > 3) {
+            alert("You can only select a maximum of 3 equipments.");
+        } else if (name && capacity) {
             fetch('add_room.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     name: name,
                     capacity: capacity,
-                    equipment: equipment
+                    equipment: selectedEquipments
                 })
             })
             .then(response => response.json())
@@ -32,7 +45,7 @@ function addRoom() {
                     row.innerHTML = `
                         <td>${name}</td>
                         <td>${capacity}</td>
-                        <td>${equipment}</td>
+                        <td>${selectedEquipments.join(', ')}</td>
                         <td>
                             <button onclick="editRoom(${data.room_id})">Edit</button>
                             <button onclick="deleteRoom(${data.room_id})">Delete</button>
@@ -60,7 +73,15 @@ function addRoom() {
         row.innerHTML = `
             <td><input type="text" class="room-name" placeholder="Room Name" /></td>
             <td><input type="text" class="room-capacity" placeholder="Capacity" /></td>
-            <td><input type="text" class="room-equipment" placeholder="Equipment" /></td>
+            <td>
+                <div class="room-equipment">
+                    <label><input type="checkbox" value="Projector"> Projector</label><br>
+                    <label><input type="checkbox" value="Whiteboard"> Whiteboard</label><br>
+                    <label><input type="checkbox" value="SmartB"> Smart Board</label><br>
+                    <label><input type="checkbox" value="NE Equipments"> Networking Equipment</label><br>
+                    <label><input type="checkbox" value="PCS"> Computers</label><br>
+                </div>
+            </td>
             <td>
                 <button onclick="addRoom()">Submit</button>
                 <button onclick="cancelAddRoom(this)">Cancel</button>
@@ -74,6 +95,7 @@ function addRoom() {
         isAddingRoom = true;
     }
 }
+
 
 // Cancel adding a new room
 function cancelAddRoom(button) {
@@ -106,6 +128,7 @@ function saveRoom(roomId) {
     const capacity = row.querySelector('.room-capacity input').value;
     const equipment = row.querySelector('.room-equipment input').value;
 
+    
     if (name && capacity) {
         fetch('edit_room.php', {
             method: 'POST',
@@ -157,62 +180,108 @@ function deleteRoom(roomId) {
     }
 }
 
-// Add a new schedule
-function addSchedule() {
-    const roomId = prompt("Enter the Room ID for the schedule:");
-    const dayOfWeek = prompt("Enter the day of the week:");
-    const startTime = prompt("Enter the start time (HH:MM):");
-    const endTime = prompt("Enter the end time (HH:MM):");
+// Add a new schedule (via table)
+function addScheduleRow() {
+    const table = document.querySelector("#manage-schedules tbody");
+    const newRow = document.createElement("tr");
 
-    if (roomId && dayOfWeek && startTime && endTime) {
+    newRow.innerHTML = `
+        <td>
+            <select id="new-room-id">
+                ${Array.from(document.querySelectorAll(".room-name")).map(room => {
+                    const roomId = room.parentElement.id.split("-")[2];
+                    return `<option value="${roomId}">${room.innerText}</option>`;
+                }).join('')}
+            </select>
+        </td>
+        <td><input type="text" id="new-day" placeholder="Day of Week"></td>
+        <td><input type="time" id="new-start-time"></td>
+        <td><input type="time" id="new-end-time"></td>
+        <td>
+            <button onclick="saveNewSchedule()">Save</button>
+            <button onclick="this.closest('tr').remove()">Cancel</button>
+        </td>
+    `;
+    table.appendChild(newRow);
+}
+
+// Save the new schedule
+function saveNewSchedule() {
+    const roomId = document.querySelector("#new-room-id").value;
+    const day = document.querySelector("#new-day").value;
+    const startTime = document.querySelector("#new-start-time").value;
+    const endTime = document.querySelector("#new-end-time").value;
+
+    if (roomId && day && startTime && endTime) {
         fetch('add_schedule.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 room_id: roomId,
-                day_of_week: dayOfWeek,
+                day_of_week: day,
                 start_time: startTime,
                 end_time: endTime
             })
         })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert("Schedule added successfully!");
-                    location.reload();
-                } else {
-                    alert("Failed to add schedule: " + data.message);
-                }
-            });
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Schedule added successfully!");
+                location.reload();
+            } else {
+                alert("Error adding schedule: " + data.message);
+            }
+        });
+    } else {
+        alert("Please fill in all fields.");
     }
 }
 
 // Edit an existing schedule
-function editSchedule(scheduleId) {
-    const newDay = prompt("Enter the new day of the week:");
-    const newStartTime = prompt("Enter the new start time (HH:MM):");
-    const newEndTime = prompt("Enter the new end time (HH:MM):");
+function editScheduleRow(row, scheduleId) {
+    const cells = row.querySelectorAll("td");
+    const day = cells[1].innerText;
+    const startTime = cells[2].innerText;
+    const endTime = cells[3].innerText;
 
-    if (newDay && newStartTime && newEndTime) {
+    cells[1].innerHTML = `<input type="text" value="${day}">`;
+    cells[2].innerHTML = `<input type="time" value="${startTime}">`;
+    cells[3].innerHTML = `<input type="time" value="${endTime}">`;
+
+    cells[4].innerHTML = `
+        <button onclick="saveEditedSchedule(${scheduleId}, this.closest('tr'))">Save</button>
+        <button onclick="location.reload()">Cancel</button>
+    `;
+}
+
+// Save edited schedule
+function saveEditedSchedule(scheduleId, row) {
+    const day = row.querySelector("td:nth-child(2) input").value;
+    const startTime = row.querySelector("td:nth-child(3) input").value;
+    const endTime = row.querySelector("td:nth-child(4) input").value;
+
+    if (day && startTime && endTime) {
         fetch('edit_schedule.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 schedule_id: scheduleId,
-                day_of_week: newDay,
-                start_time: newStartTime,
-                end_time: newEndTime
+                day_of_week: day,
+                start_time: startTime,
+                end_time: endTime
             })
         })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert("Schedule updated successfully!");
-                    location.reload();
-                } else {
-                    alert("Failed to update schedule: " + data.message);
-                }
-            });
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Schedule updated successfully!");
+                location.reload();
+            } else {
+                alert("Error updating schedule: " + data.message);
+            }
+        });
+    } else {
+        alert("Please fill in all fields.");
     }
 }
 
