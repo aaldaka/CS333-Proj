@@ -59,22 +59,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         body {
             background-color: rgb(238, 238, 238);
         }
+
         .card {
-            background-color: rgb(212, 190, 228);
-            border: 1px solid rgb(155, 126, 189);
-            border-radius: 10px;
-            padding: 20px;
+        background-color: rgb(212, 190, 228);
+        border: 1px solid rgb(155, 126, 189);
+        border-radius: 10px;
+        padding: 20px;
+        max-width: 500px; 
+        margin: 0 auto; 
         }
+
         .alert {
             color: red;
         }
         .success {
             color: green;
         }
-        input {
-            background-color: white;
-            color:black;
+
+        form {
+        width: 100%; 
+        max-width: 400px; 
+        margin: 0 auto; 
+        padding: 20px; 
         }
+
+        input {
+        width: 100%; 
+        padding: 10px; 
+        font-size: 16px; 
+        border-radius: 5px;
+        border: 1px solid rgb(155, 126, 189);
+        }
+
+        h2{
+            text-align: center;
+            color: black;
+            font-style: italic;
+        }
+
+        label{
+            color: black;
+            font-weight: bold;
+        }
+        .inputspc{
+            background-color: rgb(59,30,84);
+        }
+
     </style>
 </head>
 <body>
@@ -82,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="grid">
             <div class="col-4">
                 <div class="card">
-                    <h2 style="color:black;">User  Registration</h2>
+                    <h2>User  Registration</h2>
 
                     <?php foreach ($error_messages as $error): ?>
                         <div class="alert"><?php echo $error; ?></div>
@@ -93,19 +123,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <?php endif; ?>
 
                     <form method="post" action="">
-                        <label for="name" style="color:black;">Name:</label>
+                        <label for="name">Name:</label>
                         <input type="text" name="name" required><br>
 
-                        <label for="email" style="color:black;">Email:</label>
+                        <label for="email">Email:</label>
                         <input type="email" name="email" required><br>
 
-                        <label for="password" style="color:black;">Password:</label>
+                        <label for="password">Password:</label>
                         <input type="password" name="password" required><br>
 
-                        <label for="confirm_password" style="color:black;">Confirm Password:</label>
+                        <label for="confirm_password">Confirm Password:</label>
                         <input type="password" name="confirm_password" required><br>
 
-                        <input type="submit" value="Register" style="background-color: rgb(59,30,84);">
+                        <input class = "inputspc" type="submit" value="Register">
                     </form>
                 </div>
             </div>
