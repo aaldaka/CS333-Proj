@@ -47,7 +47,7 @@ $adminLogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Admin Dashboard</title>
     <script defer src="scripts.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="../custom.css">
+    <link rel="stylesheet" href="custom.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
