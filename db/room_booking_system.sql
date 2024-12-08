@@ -59,7 +59,9 @@ CREATE TABLE `bookings` (
   `start_time` datetime NOT NULL,
   `end_time` datetime NOT NULL,
   `duration` int(11) NOT NULL,
+  `duration` int(11) NOT NULL,
   `status` enum('booked','cancelled') DEFAULT 'booked',
+  `date` date NOT NULL
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -116,6 +118,9 @@ CREATE TABLE `users` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `gender` enum('Male','Female') DEFAULT NULL,
   `major` varchar(255) DEFAULT NULL
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `gender` enum('Male','Female') DEFAULT NULL,
+  `major` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -143,6 +148,8 @@ ALTER TABLE `admin_actions`
 --
 ALTER TABLE `bookings`
   ADD PRIMARY KEY (`booking_id`),
+  ADD UNIQUE KEY `room_id` (`room_id`),
+  ADD KEY `user_id` (`user_id`);
   ADD UNIQUE KEY `room_id` (`room_id`),
   ADD KEY `user_id` (`user_id`);
 
