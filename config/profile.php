@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $userId = $_SESSION['user_id'];
-$stmt = $pdo->prepare("SELECT name, email, profile_picture, gender, major FROM users WHERE user_id = :user_id");
+$stmt = $pdo->prepare("SELECT name, user_type , email, profile_picture, gender, major FROM users WHERE user_id = :user_id");
 $stmt->execute(['user_id' => $userId]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -124,6 +124,7 @@ $profilePicture = !empty($user['profile_picture']) ? $user['profile_picture'] : 
             style="width: 180px; height: 180px;">
         <p><strong>Name:</strong> <?php echo htmlspecialchars($user['name']); ?></p>
         <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
+        <p><strong>Privileges:</strong> <?php echo htmlspecialchars($user['user_type']); ?></p>
         <p><strong>Gender:</strong> <?php echo htmlspecialchars($user['gender'] ?? '________'); ?></p>
         <p><strong>Major:</strong> <?php echo htmlspecialchars($user['major'] ?? '________'); ?></p>
         <a href="edit_profile.php" role="button" class="secondary">Edit Profile</a>
