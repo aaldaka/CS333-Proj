@@ -20,10 +20,10 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room Browsing</title>
-    <!-- PicoCSS for styling -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-    <!-- Link to the external styles.css file -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <!-- Link to the external styles.css file --> 
+    <link rel="stylesheet" href="styles2.css">
+    
 </head>
 <body>
 
@@ -31,7 +31,6 @@ try {
 <div class="sidebar">
     <ul class="sidebar-links">
         <li><a href="home.php">HOME</a></li>
-        <li><a href="rooms.php">ROOMS</a></li>
         <li><a href="bookings.php">BOOKINGS</a></li>
         <li><a href="profile.php">PROFILE</a></li>
         <li><a href="login.php">LOGOUT</a></li>
@@ -76,7 +75,6 @@ try {
     // JavaScript for toggle functionality
     function toggleSidebar() {
         document.querySelector('.sidebar').classList.toggle('open');
-        document.querySelector('.main-content').classList.toggle('shifted');
     }
 </script>
 
