@@ -1,0 +1,124 @@
+/* :root {
+  --primary-color: rgb(59, 30, 84);
+  --transitional-color: rgb(100, 56, 140);
+  --secondary-color: rgb(155, 126, 189);
+  --background-color: rgb(238, 238, 238);
+  --text-color: #000;
+} */
+
+/* Custom colors */
+.button.is-primary {
+  background-color: rgb(78, 40, 111); /* Custom primary button background */
+  border-color: #2980b9;    /* Custom primary button border */
+  color: white;            /* Custom primary button text */
+}
+
+.has-text-primary {
+  color: #3498db; /* Custom primary text color */
+}
+
+.is-primary {
+  background-color: rgb(78, 40, 111) !important; /* Override Bulma's primary background color */
+  border-color: #2980b9 !important;    /* Override Bulma's primary border color */
+}
+
+.table th, .table td {
+  font-size: 18px; /* Apply smaller font size to table headers and cells */
+}
+
+/* Content area adjustment */
+.main-content {
+  margin-left: 250px; /* Account for sidebar width */
+  transition: margin-left 0.3s ease;
+}
+
+/* For smaller screens */
+@media (max-width: 768px) {
+  .sidebar {
+      transform: translateX(-100%); /* Hidden by default on small screens */
+  }
+  .sidebar.open {
+      transform: translateX(0); /* Toggle sidebar visible */
+  }
+  .main-content {
+      margin-left: 0; /* Full-width content when sidebar is hidden */
+  }
+}
+
+.hero-body {
+  display: flex;
+  flex-direction: column; /* Arrange elements vertically */
+  align-items: center;    /* Horizontal centering */
+  justify-content: center; /* Vertical centering */
+  text-align: center;      /* Center-align text */
+}
+
+/* Sidebar Styling */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;  /* Initially off-screen */
+  height: 100%;
+  width: 250px;
+  background-color: rgb(59, 30, 84);
+  color: white;
+  transition: left 0.3s ease;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: auto; /* Scrollbar for sidebar if needed */
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sidebar-header h2 {
+  margin: 0;
+  color: #D4BEE4;
+}
+
+.sidebar-links {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-links li {
+  padding: 15px;
+  text-align: center;
+}
+
+.sidebar-links li a {
+  text-decoration: none;
+  color: #D4BEE4;
+  display: block;
+}
+
+.sidebar-links li a:hover {
+  color: #D4BEE4;
+}
+
+/* Styling for the Toggle Button */
+.main-content .toggle-btn {
+  font-size: 30px;
+  background: none;
+  border: none;
+  color: #9B7EBD;
+  cursor: pointer;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1100;
+  padding: 15px;
+  border-radius: 5px;
+}
+
