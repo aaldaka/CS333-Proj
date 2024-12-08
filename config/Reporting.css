@@ -3,8 +3,7 @@ body{
 }
 
 .chart-container {
-    display: flex;
-    justify-content: space-around;
+    padding: 10px;
     align-items: center;
     margin-top: 20px;
 }
@@ -13,16 +12,19 @@ canvas {
     max-width: 100%;
     height: auto;
     width: 45%;
+    padding: 10px;
 }
 
 #roomUsagePieChart {
-    width: 400px;
-    height: 400px;
+    width: 50%; 
+    max-width: 400px; 
+    margin: auto;
 }
 
 #roomBookingsBarChart {
-    width: 700px;
-    height: 500px;
+    width: 80%; 
+    max-width: 700px; 
+    margin: auto;
 }
 
 h2{
