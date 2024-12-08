@@ -27,15 +27,20 @@ $profilePicture = !empty($user['profile_picture']) ? $user['profile_picture'] : 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.5.7/css/pico.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
         :root {
-            --background-color: rgb(85, 45, 123); /* Deep Purple */
-            --primary-color: rgb(112, 66, 153);   /* Muted Purple */
-            --secondary-color: rgb(179, 132, 205);/* Soft Lavender */
-            --accent-color: rgb(218, 182, 255);   /* Light Lavender */
-            --card-color: rgb(242, 232, 255);     /* Very Light Purple */
+            --background-color: rgb(85, 45, 123);
+            /* Deep Purple */
+            --primary-color: rgb(112, 66, 153);
+            /* Muted Purple */
+            --secondary-color: rgb(179, 132, 205);
+            /* Soft Lavender */
+            --accent-color: rgb(218, 182, 255);
+            /* Light Lavender */
+            --card-color: rgb(242, 232, 255);
+            /* Very Light Purple */
         }
 
         body {
@@ -99,15 +104,37 @@ $profilePicture = !empty($user['profile_picture']) ? $user['profile_picture'] : 
 </head>
 
 <body>
+    <div class="sidebar">
+        <ul class="sidebar-links">
+            <li><a href="home.php">HOME</a></li>
+            <li><a href="rooms.php">ROOMS</a></li>
+            <li><a href="bookings.php">BOOKINGS</a></li>
+            <li><a href="login.php">LOGOUT</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Toggle Button -->
+        <button class="toggle-btn" onclick="toggleSidebar()">&#9776;</button>
+    </div>
     <main class="container">
         <h1>Your Profile</h1>
-        <img src="../uploads/<?php echo htmlspecialchars($profilePicture); ?>" alt="Profile Picture" style="width: 180px; height: 180px;">
+        <img src="../uploads/<?php echo htmlspecialchars($profilePicture); ?>" alt="Profile Picture"
+            style="width: 180px; height: 180px;">
         <p><strong>Name:</strong> <?php echo htmlspecialchars($user['name']); ?></p>
         <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
         <p><strong>Gender:</strong> <?php echo htmlspecialchars($user['gender'] ?? '________'); ?></p>
         <p><strong>Major:</strong> <?php echo htmlspecialchars($user['major'] ?? '________'); ?></p>
         <a href="edit_profile.php" role="button" class="secondary">Edit Profile</a>
     </main>
+    <script>
+        // JavaScript for toggle functionality
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('open');
+            document.querySelector('.main-content').classList.toggle('shifted');
+        }
+    </script>
 </body>
 
 </html>
