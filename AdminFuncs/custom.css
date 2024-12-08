@@ -1,20 +1,8 @@
-/* :root {
-  --primary-color: rgb(59, 30, 84);
-  --transitional-color: rgb(100, 56, 140);
-  --secondary-color: rgb(155, 126, 189);
-  --background-color: rgb(238, 238, 238);
-  --text-color: #000;
-} */
-
 /* Custom colors */
 .button.is-primary {
   background-color: rgb(78, 40, 111); /* Custom primary button background */
   border-color: #2980b9;    /* Custom primary button border */
   color: white;            /* Custom primary button text */
-}
-
-.has-text-primary {
-  color: #3498db; /* Custom primary text color */
 }
 
 .is-primary {
@@ -25,6 +13,7 @@
 .table th, .table td {
   font-size: 18px; /* Apply smaller font size to table headers and cells */
 }
+
 
 /* Content area adjustment */
 .main-content {

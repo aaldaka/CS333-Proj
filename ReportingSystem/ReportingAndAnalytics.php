@@ -8,13 +8,13 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-require 'db_config.php';
+require '../config/db_config.php';
 
 // This query for the room usage
 $stmt = $pdo->prepare("SELECT 
         r.name AS room_name, 
         COUNT(b.booking_id) AS total_bookings, 
-        SUM(TIMESTAMPDIFF(HOUR, b.start_time, b.end_time)) AS total_hours
+        COALESCE(SUM(TIMESTAMPDIFF(HOUR, b.start_time, b.end_time)), 0) AS total_hours
     FROM rooms r
     LEFT JOIN bookings b ON r.room_id = b.room_id
     WHERE b.status = 'booked'
@@ -35,16 +35,17 @@ try {
 // This querys for upcoming and past bookings
 // Query for past bookings
 $stmtPast = $pdo->prepare("SELECT
-        booking_id As booking_id
-        room_id As room_name
-        start_time As start_time
-        end_time As end_time
-    FROM bookings
-    WHERE 
-        user_id = :user_id
-        AND end_time < NOW()
-        AND status = 'booked';
-    ORDER BY b.start_time DESC
+    b.booking_id,
+    r.name AS room_name,
+    b.start_time,
+    b.end_time
+FROM bookings b
+LEFT JOIN rooms r ON b.room_id = r.room_id
+WHERE 
+    b.user_id = :user_id
+    AND b.end_time < NOW()
+    AND b.status = 'booked'
+ORDER BY b.start_time DESC
 ");
 
 $stmtPast->bindParam(':user_id', $user_id, PDO::PARAM_INT);
@@ -62,16 +63,17 @@ try {
 
 // Query for upcoming bookings
 $stmtUpcoming = $pdo->prepare("SELECT
-        booking_id As booking_id
-        room_id As room_name
-        start_time As start_time
-        end_time As end_time
-    FROM bookings
-    WHERE 
-        b.user_id = :user_id
-        AND b.status = 'booked'
-        AND b.start_time >= NOW()
-    ORDER BY b.start_time ASC
+    b.booking_id,
+    r.name AS room_name, 
+    b.start_time,
+    b.end_time
+FROM bookings b
+LEFT JOIN rooms r ON b.room_id = r.room_id  
+WHERE 
+    b.user_id = :user_id
+    AND b.status = 'booked'
+    AND b.start_time >= NOW()
+ORDER BY b.start_time ASC
 ");
 
 
@@ -244,7 +246,7 @@ try {
     <thead>
         <tr>
             <th>Booking ID</th>
-            <th>Room ID</th>
+            <th>Room Name</th>
             <th>Start Time</th>
             <th>End Time</th>
         </tr>
@@ -276,7 +278,7 @@ try {
     <thead>
         <tr>
             <th>Booking ID</th>
-            <th>Room ID</th>
+            <th>Room Name</th>
             <th>Start Time</th>
             <th>End Time</th>
         </tr>

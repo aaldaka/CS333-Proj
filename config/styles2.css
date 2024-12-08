@@ -238,3 +238,28 @@ h1 {
         padding: 12px 20px;
     }
 }
+
+/*trying to implement admin dashboard*/
+.hero-body {
+    display: flex;
+    flex-direction: column; /* Arrange elements vertically */
+    align-items: center;    /* Horizontal centering */
+    justify-content: center; /* Vertical centering */
+    text-align: center;      /* Center-align text */
+  }
+
+.is-primary {
+  background-color: rgb(78, 40, 111) !important; /* Override Bulma's primary background color */
+  border-color: #2980b9 !important;    /* Override Bulma's primary border color */
+}
+
+.table th, .table td {
+  font-size: 18px; /* Apply smaller font size to table headers and cells */
+}
+
+.button.is-primary {
+    background-color: rgb(78, 40, 111); /* Custom primary button background */
+    border-color: #2980b9;    /* Custom primary button border */
+    color: white;            /* Custom primary button text */
+  }
+  
