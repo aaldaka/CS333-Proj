@@ -1,3 +1,28 @@
+<?php
+session_start();
+include 'db_config.php';
+
+// Ensure room_id is provided
+if (isset($_GET['room_id'])) {
+    $room_id = $_GET['room_id'];
+
+    // Fetch room details from the database
+    $query = "SELECT room_name FROM rooms WHERE id = :room_id";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':room_id', $room_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $room = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($room) {
+        $room_name = htmlspecialchars($room['room_name']); // Escape for security
+    } else {
+        die("Room not found.");
+    }
+} else {
+    die("Room ID not provided.");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
