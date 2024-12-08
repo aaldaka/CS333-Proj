@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'db_config.php'; // Include your database configuration
+require '../config/db_config.php'; // Include your database configuration
 
 $error_messages = [];
 $success_message = '';
@@ -58,27 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-    <style>
-        body {
-            background-color: rgb(238, 238, 238);
-        }
-        .card {
-            background-color: rgb(212, 190, 228);
-            border: 1px solid rgb(155, 126, 189);
-            border-radius: 10px;
-            padding: 20px;
-        }
-        .alert {
-            color: red;
-        }
-        .success {
-            color: green;
-        }
-        input {
-            background-color: white;
-            color:black;
-        }
-    </style>
+    <link rel="stylesheet" href="RegistrationStyles.css">
 </head>
 <body>
     <main class="container">

@@ -1,0 +1,58 @@
+body {
+    background-color: rgb(238, 238, 238);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.left-half,
+.right-half {
+    width: 50%;
+    height: 100%;
+    display: inline-block;
+}
+
+.left-half {
+    background-color: rgb(212, 190, 228);
+    padding: 20px;
+    border: 1px solid rgb(155, 126, 189);
+    border-radius: 10px;
+}
+
+.right-half {
+    background-image: url('loginpage.JPG');
+    background-size: cover;
+    background-position: center;
+}
+
+.form-container {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.alert {
+    color: red;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(59, 30, 84);
+}
+
+input {
+    background-color: white;
+    color: black;
+}
+.small-text {
+    font-size: 0.8em; /* Smaller font size */
+    display: inline; /* Keep them on the same line */
+}
+
+.remember-forgot {
+    display: flex; /* Use flexbox to align items */
+    justify-content: space-between; /* Space between items */
+    align-items: center; /* Center vertically */
+}
