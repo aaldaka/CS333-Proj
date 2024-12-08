@@ -7,6 +7,7 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit;
 }
+
 // Include database configuration
 include('../config/db_config.php');
 
