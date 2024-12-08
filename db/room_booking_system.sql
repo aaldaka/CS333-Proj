@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2024 at 02:04 PM
+-- Generation Time: Dec 04, 2024 at 12:30 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -65,6 +65,13 @@ CREATE TABLE `bookings` (
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `bookings`
+--
+
+INSERT INTO `bookings` (`booking_id`, `user_id`, `room_id`, `start_time`, `end_time`, `duration`, `status`, `date`) VALUES
+(1, 2, 11, '2024-12-04 10:00:00', '2024-12-04 10:50:00', 50, 'booked', '0000-00-00');
+
 -- --------------------------------------------------------
 
 --
@@ -84,9 +91,8 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`room_id`, `name`, `capacity`, `equipment`, `created_at`) VALUES
-(9, '004', 20, 'NE Equipments', '2024-12-04 11:58:40'),
-(10, '123', 5, 'PCS', '2024-12-04 12:16:09'),
-(11, '099', 22, 'NE Equipments', '2024-12-04 12:16:39');
+(11, '097', 25, 'Projector', '2024-12-04 12:16:39'),
+(14, '005', 30, 'Projector, PCS', '2024-12-08 07:02:43');
 
 -- --------------------------------------------------------
 
@@ -101,6 +107,13 @@ CREATE TABLE `room_schedules` (
   `start_time` time NOT NULL,
   `end_time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `room_schedules`
+--
+
+INSERT INTO `room_schedules` (`schedule_id`, `room_id`, `day_of_week`, `start_time`, `end_time`) VALUES
+(43, 14, 'Tuesday', '10:00:00', '16:00:00');
 
 -- --------------------------------------------------------
 
@@ -150,8 +163,6 @@ ALTER TABLE `bookings`
   ADD PRIMARY KEY (`booking_id`),
   ADD UNIQUE KEY `room_id` (`room_id`),
   ADD KEY `user_id` (`user_id`);
-  ADD UNIQUE KEY `room_id` (`room_id`),
-  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `rooms`
@@ -181,25 +192,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_actions`
 --
 ALTER TABLE `admin_actions`
-  MODIFY `action_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `action_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `room_schedules`
 --
 ALTER TABLE `room_schedules`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `users`
