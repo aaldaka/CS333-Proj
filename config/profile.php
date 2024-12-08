@@ -104,14 +104,18 @@ $profilePicture = !empty($user['profile_picture']) ? $user['profile_picture'] : 
 </head>
 
 <body>
-    <div class="sidebar">
-        <ul class="sidebar-links">
-            <li><a href="home.php">HOME</a></li>
-            <li><a href="rooms.php">ROOMS</a></li>
-            <li><a href="bookings.php">BOOKINGS</a></li>
-            <li><a href="login.php">LOGOUT</a></li>
-        </ul>
-    </div>
+<div class="sidebar">
+    <ul class="sidebar-links">
+        <li><a href="rooms.php">ROOMS</a></li>
+        <li><a href="bookings.php">BOOKINGS</a></li>
+        <li><a href="profile.php">PROFILE</a></li>
+        <li><a href="login.php">LOGOUT</a></li>
+        <!-- Only display Admin link if user_type is admin -->
+        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin'): ?>
+            <li><a href="admin.php">ADMIN</a></li>
+        <?php endif; ?>
+    </ul>
+</div>
 
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
