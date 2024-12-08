@@ -27,15 +27,20 @@ $majors = ['Computer Science', 'Information Systems', 'Network Engineering', 'Cy
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
-    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.5.7/css/pico.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
         :root {
-            --background-color: rgb(85, 45, 123); /* Deep Purple */
-            --primary-color: rgb(112, 66, 153);   /* Muted Purple */
-            --secondary-color: rgb(179, 132, 205);/* Soft Lavender */
-            --accent-color: rgb(218, 182, 255);   /* Light Lavender */
-            --card-color: rgb(242, 232, 255);     /* Very Light Purple */
+            --background-color: rgb(85, 45, 123);
+            /* Deep Purple */
+            --primary-color: rgb(112, 66, 153);
+            /* Muted Purple */
+            --secondary-color: rgb(179, 132, 205);
+            /* Soft Lavender */
+            --accent-color: rgb(218, 182, 255);
+            /* Light Lavender */
+            --card-color: rgb(242, 232, 255);
+            /* Very Light Purple */
         }
 
         body {
@@ -55,7 +60,8 @@ $majors = ['Computer Science', 'Information Systems', 'Network Engineering', 'Cy
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             padding: 40px;
-            max-width: 700px; /* Horizontally larger card */
+            max-width: 700px;
+            /* Horizontally larger card */
             width: 100%;
             text-align: left;
             position: relative;
@@ -76,7 +82,9 @@ $majors = ['Computer Science', 'Information Systems', 'Network Engineering', 'Cy
             font-weight: 500;
         }
 
-        form input, form select, form button {
+        form input,
+        form select,
+        form button {
             width: 100%;
             margin-top: 5px;
             padding: 10px;
@@ -108,23 +116,41 @@ $majors = ['Computer Science', 'Information Systems', 'Network Engineering', 'Cy
         }
 
         .input-group label {
-            width: 48%; /* Two items per row with some space */
+            width: 48%;
+            /* Two items per row with some space */
         }
 
-        .input-group input, .input-group select {
+        .input-group input,
+        .input-group select {
             width: 100%;
         }
     </style>
 </head>
 
 <body>
+    <div class="sidebar">
+        <ul class="sidebar-links">
+            <li><a href="home.php">HOME</a></li>
+            <li><a href="rooms.php">ROOMS</a></li>
+            <li><a href="bookings.php">BOOKINGS</a></li>
+            <li><a href="profile.php">PROFILE</a></li>
+            <li><a href="login.php">LOGOUT</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Toggle Button -->
+        <button class="toggle-btn" onclick="toggleSidebar()">&#9776;</button>
+    </div>
     <main class="container">
         <h1>Edit Profile</h1>
         <form action="update_profile.php" method="POST" enctype="multipart/form-data">
             <div class="input-group">
                 <label for="name">
                     Full Name:
-                    <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
+                    <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>"
+                        required>
                 </label>
                 <label for="profile_picture">
                     Profile Picture:
@@ -137,7 +163,8 @@ $majors = ['Computer Science', 'Information Systems', 'Network Engineering', 'Cy
                     <select id="gender" name="gender">
                         <option value="">Select</option>
                         <option value="Male" <?php echo $user['gender'] == 'Male' ? 'selected' : ''; ?>>Male</option>
-                        <option value="Female" <?php echo $user['gender'] == 'Female' ? 'selected' : ''; ?>>Female</option>
+                        <option value="Female" <?php echo $user['gender'] == 'Female' ? 'selected' : ''; ?>>Female
+                        </option>
                     </select>
                 </label>
                 <label for="major">
@@ -155,6 +182,15 @@ $majors = ['Computer Science', 'Information Systems', 'Network Engineering', 'Cy
             <button type="submit" role="primary">Save Changes</button>
         </form>
     </main>
+    <script>
+        // JavaScript for toggle functionality
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('open');
+            document.querySelector('.main-content').classList.toggle('shifted');
+        }
+    </script>
+
+
 </body>
 
 </html>
