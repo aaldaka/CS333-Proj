@@ -1,6 +1,5 @@
 <?php
 include '../config/db_config.php';  
-
 // Function to ensure no conflict booking for the user
 function checkUserConflict($pdo, $user_id, $start_datetime, $end_time) {
   $stmt = $pdo->prepare("SELECT * FROM bookings 
@@ -27,11 +26,9 @@ function checkRoomAvailability($pdo, $room_id, $start_datetime, $end_time) {
 }
 // Function to book a room
 function bookRoom($pdo, $user_id, $room_id, $start_time, $duration) {
-
   echo "Raw User Input: <br>";
     echo "Start Time (user input) = $start_time<br>";
     echo "Duration = $duration minutes<br>";
-
     // Calculate the end time based on the duration (in minutes)
     $end_time = date('Y-m-d H:i:s', strtotime($start_time . ' + ' . $duration . ' minutes'));
     // Insert the booking into the database
@@ -44,7 +41,6 @@ function bookRoom($pdo, $user_id, $room_id, $start_time, $duration) {
     $stmt->bindParam(':start_time', $start_time, PDO::PARAM_STR);
     $stmt->bindParam(':end_time', $end_time, PDO::PARAM_STR);
     $stmt->bindParam(':duration', $duration, PDO::PARAM_INT);
-
     echo "Raw User Input: <br>";
     echo "Start Time (user input) = $start_time<br>";
     echo "Duration = $duration minutes<br>";
@@ -54,10 +50,9 @@ function bookRoom($pdo, $user_id, $room_id, $start_time, $duration) {
     } else {
         return "Error: " . implode(", ", $stmt->errorInfo());
     }
-
 }
+// echo "Raw User Input: <br>";
+    // echo "Start Time (user input) = $start_time<br>";
+    // echo "Duration = $duration minutes<br>";
 ?>
-
- 
-
 
