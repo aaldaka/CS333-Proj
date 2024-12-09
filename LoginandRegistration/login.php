@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             setcookie('password', '', time() - 3600); // Expire the password cookie
         }
 
-        header("Location: login.php"); // Redirect to another page
+        header("Location: ../Rooms/home.php"); // Redirect to the home page
         exit;
     } else {
         $error_message = "Invalid email or password.";
@@ -44,7 +44,7 @@ $stored_password = isset($_COOKIE['password']) ? $_COOKIE['password'] : '';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Cube Factory - Login</title>
+    <title>Room Booking System - Login</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
     <link rel="stylesheet" href="LoginStyles.css">
 
