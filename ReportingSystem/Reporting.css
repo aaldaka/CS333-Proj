@@ -2,81 +2,6 @@
 body{
   background-color: #ebe5ef;
 }
-/* Sidebar Styling */
-/* Sidebar Styling */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: -250px;  /* Initially off-screen */
-  height: 100%;
-  width: 250px;
-  background-color: rgb(59, 30, 84);
-  color: white;
-  transition: left 0.3s ease, box-shadow 0.3s ease;
-  padding-top: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Center items vertically */
-  align-items: center;
-  z-index: 1000;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.sidebar.open {
-  left: 0;
-  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
-}
-
-.sidebar-header {
-  text-align: center;
-  margin-bottom: 20px;
-  padding: 10px;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.sidebar-header h2 {
-  margin: 0;
-  color: #D4BEE4;
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.sidebar-links {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-}
-
-.sidebar-links li {
-  width: 100%;
-  margin-bottom: 20px; /* Increased space between items */
-}
-
-.sidebar-links li a {
-  text-decoration: none;
-  color: #D4BEE4;
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Center items horizontally */
-  padding: 15px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 1rem;
-}
-
-.sidebar-links li a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #FFFFFF;
-}
-
-.sidebar-links li a i {
-  margin-right: 10px; /* Space between icon and text */
-  font-size: 1.2rem;
-}
 
 .chart-container {
   padding: 10px;
@@ -157,4 +82,94 @@ h2 {
 .table .no-data {
   text-align: center;
   color: #3B1E54;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;  /* Initially off-screen */
+  height: 100%;
+  width: 250px;
+  background-color: rgb(59, 30, 84);
+  color: white;
+  transition: left 0.3s ease, box-shadow 0.3s ease;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center items vertically */
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar.open {
+  left: 0;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-header {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-header h2 {
+  margin: 0;
+  color: #D4BEE4;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.sidebar-links {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.sidebar-links li {
+  width: 100%;
+  margin-bottom: 20px; /* Increased space between items */
+}
+
+.sidebar-links li a {
+  text-decoration: none;
+  color: #D4BEE4;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center items horizontally */
+  padding: 15px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1rem;
+}
+
+.sidebar-links li a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+.sidebar-links li a i {
+  margin-right: 10px; /* Space between icon and text */
+  font-size: 1.2rem;
+}
+
+/* Styling for the Toggle Button */
+.main-content .toggle-btn {
+  font-size: 30px;
+  background: none;
+  border: none;
+  color: #9B7EBD;
+  cursor: pointer;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1100;
+  padding: 15px;
+  border-radius: 5px;
 }
