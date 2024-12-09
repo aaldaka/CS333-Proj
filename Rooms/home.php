@@ -43,7 +43,8 @@ try {
 <div class="sidebar">
     <ul class="sidebar-links">
         <li><a href="rooms.php">ROOMS</a></li>
-        <li><a href="../bookingSystem/booking.php">BOOKINGS</a></li>
+        <li><a href="../bookingSystem/booking_list.php">BOOKINGS</a></li>
+        <li><a href="../ReportingSystem/ReportingAndAnalytics.php">REPORTING</a></li>
         <li><a href="../Profile/profile.php">PROFILE</a></li>
         <!-- Only display Admin link if user_type is admin -->
         <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin'): ?>
@@ -63,18 +64,15 @@ try {
         <header>
             <h1>Welcome to the Room Booking System</h1>
         </header>
-<div class="container">
         <div class="content-box">
-            
+            <div class="container">
                 <?php if (!empty($rooms)): ?>
                     <div class="room-list">
                         <?php foreach ($rooms as $room): ?>
-                            <div class="room">
-                                <!-- Wrap each room in an anchor tag to link to the room details page -->
-                                <a href="room_details.php?room_id=<?php echo $room['room_id']; ?>" class="room-box">
+                            <div class="room-box">
+                                <a href="room_details.php?room_id=<?php echo $room['room_id']; ?>" class="room-link">
                                     <h2><?php echo htmlspecialchars($room['name']); ?></h2>
                                     <p><strong>Capacity:</strong> <?php echo htmlspecialchars($room['capacity']); ?></p>
-                                    <p><strong>Equipment:</strong> <?php echo htmlspecialchars($room['equipment']); ?></p>
                                 </a>
                             </div>
                         <?php endforeach; ?>
