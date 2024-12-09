@@ -48,18 +48,20 @@ $adminLogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <script defer src="scripts.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="custom.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 <body>
 
+<!-- Sidebar -->
 <div class="sidebar">
     <ul class="sidebar-links">
-        <li><a href="../Rooms/home.php"><i class='bx bxs-home-smile'></i>HOME</a></li>
-        <li><a href="../Rooms/rooms.php">ROOMS</a></li>
-        <li><a href="../bookingSystem/booking_list.php">BOOKINGS</a></li>
-        <li><a href="../ReportingSystem/ReportingAndAnalytics.php">REPORTING</a></li>
-        <li><a href="../Profile/profile.php">PROFILE</a></li>
-        <li><a href="../LoginandRegistration/login.php">LOGOUT</a></li>
+    <li><a href="../Rooms/home.php"><i class="fas fa-home"></i> HOME</a></li>
+    <li><a href="../Rooms/rooms.php"><i class="fas fa-door-open"></i> ROOMS</a></li>
+        <li><a href="../bookingSystem/booking_list.php"><i class="fas fa-calendar-check"></i> BOOKINGS</a></li>
+        <li><a href="../ReportingSystem/ReportingAndAnalytics.php"><i class="fas fa-chart-line"></i> REPORTING</a></li>
+        <li><a href="../Profile/profile.php"><i class="fas fa-user"></i> PROFILE</a></li>
+        <li><a href="../LoginandRegistration/login.php"><i class="fas fa-sign-out-alt"></i> LOGOUT</a></li>
     </ul>
 </div>
 
