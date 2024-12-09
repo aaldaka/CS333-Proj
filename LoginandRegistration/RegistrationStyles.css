@@ -1,49 +1,164 @@
-body {
-    background-color: rgb(238, 238, 238);
+:root {
+    --primary-color: rgb(59, 30, 84);
+    --primary-light: rgb(212, 190, 228);
+    --primary-hover: rgb(79, 40, 114);
+    --text-dark: #333;
+    --text-light: #666;
+    --white: #fff;
+    --error: #dc3545;
+    --success: #28a745;
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
-.card {
-background-color: rgb(212, 190, 228);
-border: 1px solid rgb(155, 126, 189);
-border-radius: 10px;
-padding: 20px;
-max-width: 500px; 
-margin: 0 auto; 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--white) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-container {
+    background: var(--white);
+    padding: min(4vh, 2rem);
+    border-radius: 20px;
+    width: min(90%, 400px);
+    box-shadow: 0 10px 30px rgba(59, 30, 84, 0.1), 0 1px 8px rgba(59, 30, 84, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-height: 90vh;
+    overflow-y: auto;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+h1 {
+    color: var(--primary-color);
+    font-size: min(4vh, 2.2rem);
+    margin-bottom: min(2vh, 1rem);
+    font-weight: 600;
+}
+
+p {
+    color: var(--text-light);
+    margin-bottom: min(3vh, 1.5rem);
+    font-size: min(2.5vh, 1rem);
+}
+
+.alert, .success {
+    padding: min(2vh, 1rem);
+    border-radius: 10px;
+    margin-bottom: min(2vh, 1rem);
+    font-size: min(2vh, 0.9rem);
 }
 
 .alert {
-    color: red;
+    background: #fff2f2;
+    color: var(--error);
+    border-left: 4px solid var(--error);
 }
+
 .success {
-    color: green;
+    background: #f0fff4;
+    color: var(--success);
+    border-left: 4px solid var(--success);
 }
 
 form {
-width: 100%; 
-max-width: 400px; 
-margin: 0 auto; 
-padding: 20px; 
+    display: flex;
+    flex-direction: column;
+    gap: min(2vh, 1rem);
+    width: 100%;
+    align-items: center;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: min(1vh, 0.5rem);
+    width: 100%;
+}
+
+label {
+    color: var(--primary-color);
+    font-weight: 500;
+    font-size: min(2.5vh, 1rem);
+    text-align: left;
 }
 
 input {
-width: 100%; 
-padding: 10px; 
-font-size: 16px; 
-border-radius: 5px;
-border: 1px solid rgb(155, 126, 189);
-background-color:white ;
+    width: 100%;
+    padding: min(1.5vh, 0.8rem) min(2vh, 1rem);
+    border: 2px solid rgba(59, 30, 84, 0.2);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+    font-size: min(2.5vh, 1rem);
 }
 
-h2{
+input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(59, 30, 84, 0.1);
+    background: var(--white);
+}
+
+button {
+    width: 100%;
+    padding: min(2vh, 1rem);
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-size: min(2.5vh, 1rem);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: min(2vh, 1rem);
+    box-shadow: 0 4px 12px rgba(59, 30, 84, 0.2);
+}
+
+button:hover {
+    background: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(59, 30, 84, 0.3);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(59, 30, 84, 0.2);
+}
+
+.signup-text {
+    width: 100%;
     text-align: center;
-    color: black;
-    font-style: italic;
+    margin-top: min(2vh, 1rem);
+    color: var(--primary-color);
 }
 
-label{
-    color: black;
-    font-weight: bold;
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
 }
-.inputspc{
-    background-color: rgb(59,30,84);
+
+a:hover {
+    color: var(--primary-hover);
 }
