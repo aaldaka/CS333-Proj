@@ -15,6 +15,12 @@ if (empty($data['room_id']) || empty($data['day_of_week']) || empty($data['start
 }
 
 try {
+    // Validate time inputs
+    if (strtotime($data['end_time']) <= strtotime($data['start_time'])) {
+        echo json_encode(['success' => false, 'message' => 'Invalid time range: End time must be greater than start time.']);
+        exit;
+    }
+    
     $stmtCheck = $pdo->prepare("SELECT COUNT(*) FROM room_schedules WHERE room_id = ? AND day_of_week = ? AND start_time = ? AND end_time = ?");
     $stmtCheck->execute([$data['room_id'], $data['day_of_week'], $data['start_time'], $data['end_time']]);
     $scheduleCount = $stmtCheck->fetchColumn();
