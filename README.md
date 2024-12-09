@@ -4,7 +4,7 @@ The Room Booking System is a web-based application designed for the IT College t
 
 ## Authors
 - Malak Jamal Almari , 202103282
-- Hawra Fadhel , 202208944
+- Hawra Fadhel Abbas, 202208944
 - Maryam Ali Hasan , 202209427
 - Khaireya Husain Alhaiki , 202208539
 - Alya Hasan , 202208622
@@ -26,6 +26,7 @@ The Room Booking System is a web-based application designed for the IT College t
 - Enjoy your booking trip!
 ## User Registration and Login
 ## User Profile Management
+-In this project, I was responsible for developing the User Profile Management system for the web-based room booking system. My tasks included designing and implementing the user profile page, where users can view and edit their profile information, such as name, email, gender, major, and profile picture. I also created functionality for users to upload and manage their profile pictures.
 ## Room Browsing and Details
 - my part , that take the data from the database that was related to the rooms and IDs.
 - Clear organizing to the data visibility for each room and important details.
