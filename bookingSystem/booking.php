@@ -1,7 +1,11 @@
-
 <?php
 session_start();
 include '../config/db_config.php';
+// Check if the user is logged in and redirect to the login page if not logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../config/login.php");
+    exit();
+}
 // Ensure room_id is provided
 if (isset($_GET['room_id'])) {
     $room_id = $_GET['room_id'];
@@ -48,12 +52,25 @@ if (isset($_GET['room_id'])) {
             </div>
         <?php endif; ?>
         <form action="book_room.php" method="POST">
-            <!-- Pass room_id as a hidden input -->
             <input type="hidden" name="room_id" value="<?php echo $room_id; ?>">
-            <!-- Pass room_name as a hidden input -->
             <input type="hidden" name="room_name" value="<?php echo $room_name; ?>">
             <label for="date">Choose Date</label>
             <input type="date" id="date" name="date" min="<?php echo date('Y-m-d'); ?>" required>
+            <script>
+                    const dateInput = document.getElementById('date');
+                    dateInput.addEventListener('input', function () {
+                        const selectedDate = new Date(this.value);
+                        const dayOfWeek = selectedDate.getUTCDay(); // 5 = Friday
+                        // Prevent weekends (Friday = 5)
+                        if (dayOfWeek === 5 ) {
+                            this.value = ''; // Clear the input
+                            alert('Bookings are not allowed on Fridays!');
+                        } else {
+                            updateTimeSlots(); 
+                        }
+                    });
+                </script> 
+
             <label for="duration">Choose Duration</label>
             <select id="duration" name="duration" required>
                 <option value="50">50 minutes</option>
@@ -97,109 +114,93 @@ if (isset($_GET['room_id'])) {
             // Filter schedules for the selected day
             const schedulesForDay = roomSchedules.filter(schedule => schedule.day_of_week === dayOfWeek);
 
+            // Function to generate time slots based on duration and start/end times
+            const generateTimeSlots = (startHour, startMinute, endHour, endMinute) => {
+                let currentHour = startHour;
+                let currentMinute = startMinute;
+
+                while (currentHour < endHour || (currentHour === endHour && currentMinute < endMinute)) {
+                    // Create the start and end time for the current time slot
+                    const startTime = `${String(currentHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')}`;
+                    const startDateTime = new Date(`1970-01-01T${startTime}:00`);
+                    const endDateTime = new Date(startDateTime.getTime() + duration * 60000);
+
+                    const endTimeHour = endDateTime.getHours();
+                    const endTimeMinute = endDateTime.getMinutes();
+
+                    // Ensure the end time fits within the schedule
+                    if (endTimeHour < endHour || (endTimeHour === endHour && endTimeMinute <= endMinute)) {
+                        // Check if the time slot is in the past (only for today's date)
+                        if (isToday) {
+                            const now = new Date();
+                            const slotTime = new Date(selectedDate);
+                            slotTime.setHours(currentHour, currentMinute, 0, 0);
+
+                            if (slotTime <= now) {
+                                // Skip this time slot if it's in the past
+                                currentMinute = endTimeMinute;
+                                currentHour = endTimeHour;
+                                continue;
+                            }
+                        }
+
+                        // Format time for display
+                        const startTimeDisplay = startDateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+                        const endTimeDisplay = endDateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+                        const totalTimeDisplay = `${startTimeDisplay} - ${endTimeDisplay}`;
+
+                        // Add the time slot to the dropdown
+                        const option = document.createElement('option');
+                        option.value = startTime;
+                        option.textContent = totalTimeDisplay;
+                        startTimeSelect.appendChild(option);
+
+                        // Move to the next time slot
+                        currentMinute = endTimeMinute;
+                        currentHour = endTimeHour;
+
+                        // For 50 mins: Align the next slot to the hour
+                        if (duration === 50) {
+                            if (currentMinute !== 0) {
+                                currentMinute = 0;
+                                currentHour++;
+                            }
+                        }
+
+                        // For 75 mins: Add a 15-minute gap between slots
+                        else if (duration === 75) {
+                            currentMinute += 15; // Add 15-minute gap
+                            if (currentMinute >= 60) {
+                                currentMinute -= 60;
+                                currentHour++;
+                            }
+                        }
+
+                        // For 100 mins: Leave a gap of 20 minutes between slots
+                        else if (duration === 100) {
+                            currentMinute += 20;
+                            if (currentMinute >= 60) {
+                                currentMinute -= 60;
+                                currentHour++;
+                            }
+                        }
+                    } else {
+                        break;
+                    }
+                }
+            };
+
             if (schedulesForDay.length > 0) {
                 // Use admin-defined schedules for the selected day
                 schedulesForDay.forEach(schedule => {
                     const [startHour, startMinute] = schedule.start_time.split(':').map(Number);
                     const [endHour, endMinute] = schedule.end_time.split(':').map(Number);
-                    let currentHour = startHour;
-                    let currentMinute = startMinute;
 
-                    while (currentHour < endHour || (currentHour === endHour && currentMinute < endMinute)) {
-                        const startTime = `${String(currentHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')}`;
-                        const endTime = new Date(new Date(`1970-01-01T${startTime}:00`).getTime() + duration * 60000);
-                        const endTimeHour = endTime.getHours();
-                        const endTimeMinute = endTime.getMinutes();
-
-                        // Ensure the end time fits within the schedule
-                        if (endTimeHour < endHour || (endTimeHour === endHour && endTimeMinute <= endMinute)) {
-                            // Check if the time slot is in the past (only for today's date)
-                            if (isToday) {
-                                const now = new Date();
-                                const slotTime = new Date(selectedDate);
-                                slotTime.setHours(currentHour, currentMinute, 0, 0);
-
-                                if (slotTime <= now) {
-                                    // Skip this time slot if it's in the past
-                                    currentMinute += duration % 60;
-                                    currentHour += Math.floor(duration / 60);
-                                    if (currentMinute >= 60) {
-                                        currentMinute -= 60;
-                                        currentHour++;
-                                    }
-                                    continue;
-                                }
-                            }
-
-                            // Format time for display
-                            const startTimeDisplay = new Date(`1970-01-01T${startTime}:00`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-                            const endTimeDisplay = new Date(`1970-01-01T${String(endTimeHour).padStart(2, '0')}:${String(endTimeMinute).padStart(2, '0')}:00`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-                            const totalTimeDisplay = `${startTimeDisplay} - ${endTimeDisplay}`;
-
-                            // Add the time slot to the dropdown
-                            const option = document.createElement('option');
-                            option.value = startTime;
-                            option.textContent = totalTimeDisplay;
-                            startTimeSelect.appendChild(option);
-                        }
-
-                        // Increment time by the duration
-                        currentMinute += duration % 60;
-                        currentHour += Math.floor(duration / 60);
-                        if (currentMinute >= 60) {
-                            currentMinute -= 60;
-                            currentHour++;
-                        }
-                    }
+                    generateTimeSlots(startHour, startMinute, endHour, endMinute);
                 });
             } else {
                 // If no schedules are defined for the selected day, use default timings (08:00 AM - 08:00 PM)
-                const defaultStartHour = 8;
-                const defaultEndHour = 20;
-                let currentHour = defaultStartHour;
-                let currentMinute = 0;
-
-                while (currentHour < defaultEndHour || (currentHour === defaultEndHour && currentMinute < 60)) {
-                    const startTime = `${String(currentHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')}`;
-                    const endTime = new Date(new Date(`1970-01-01T${startTime}:00`).getTime() + duration * 60000);
-
-                    // Check if the time slot is in the past (only for today's date)
-                    if (isToday) {
-                        const now = new Date();
-                        const slotTime = new Date(selectedDate);
-                        slotTime.setHours(currentHour, currentMinute, 0, 0);
-
-                        if (slotTime <= now) {
-                            // Skip this time slot if it's in the past
-                            currentMinute += duration % 60;
-                            currentHour += Math.floor(duration / 60);
-                            if (currentMinute >= 60) {
-                                currentMinute -= 60;
-                                currentHour++;
-                            }
-                            continue;
-                        }
-                    }
-
-                    // Format time for display
-                    const startTimeDisplay = new Date(`1970-01-01T${startTime}:00`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-                    const endTimeDisplay = endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-                    const totalTimeDisplay = `${startTimeDisplay} - ${endTimeDisplay}`;
-
-                    // Add the time slot to the dropdown
-                    const option = document.createElement('option');
-                    option.value = startTime;
-                    option.textContent = totalTimeDisplay;
-                    startTimeSelect.appendChild(option);
-
-                    // Increment time by the duration
-                    currentMinute += duration % 60;
-                    currentHour += Math.floor(duration / 60);
-                    if (currentMinute >= 60) {
-                        currentMinute -= 60;
-                        currentHour++;
-                    }
-                }
+                generateTimeSlots(8, 0, 20, 0);
             }
         }
 
