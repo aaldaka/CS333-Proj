@@ -42,9 +42,9 @@ $profilePicture = !empty($user['profile_picture']) ? $user['profile_picture'] : 
         <li><a href="../ReportingSystem/ReportingAndAnalytics.php">REPORTING</a></li>
         <!-- Only display Admin link if user_type is admin -->
         <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin'): ?>
-            <li><a href="../config/admin.php">ADMIN</a></li>
+            <li><a href="../AdminFuncs/admin.php">ADMIN</a></li>
         <?php endif; ?>
-        <li><a href="../AdminFuncs/login.php">LOGOUT</a></li>
+        <li><a href="../LoginandRegistration/login.php">LOGOUT</a></li>
     </ul>
 </div>
 
