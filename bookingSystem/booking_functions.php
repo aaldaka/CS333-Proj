@@ -51,8 +51,4 @@ function bookRoom($pdo, $user_id, $room_id, $start_time, $duration) {
         return "Error: " . implode(", ", $stmt->errorInfo());
     }
 }
-// echo "Raw User Input: <br>";
-    // echo "Start Time (user input) = $start_time<br>";
-    // echo "Duration = $duration minutes<br>";
 ?>
-
