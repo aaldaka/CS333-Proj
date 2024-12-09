@@ -12,14 +12,14 @@ require '../config/db_config.php';
 
 // This query for the room usage
 $stmt = $pdo->prepare("SELECT 
-    r.name AS room_name, 
-    COUNT(b.booking_id) AS total_bookings, 
-    COALESCE(SUM(b.duration) / 60, 0) AS total_hours
-FROM rooms r
-LEFT JOIN bookings b 
-    ON r.room_id = b.room_id AND b.status = 'booked'
-GROUP BY r.room_id
-ORDER BY total_hours DESC;
+        r.name AS room_name, 
+        COUNT(b.booking_id) AS total_bookings, 
+        COALESCE(SUM(b.duration), 0) AS total_hours
+    FROM rooms r
+    LEFT JOIN bookings b ON r.room_id = b.room_id
+    WHERE b.status = 'booked'
+    GROUP BY r.room_id
+    ORDER BY total_hours DESC
 ");
 
 try {
@@ -131,8 +131,8 @@ try {
     const roomUsageData = <?= json_encode($rooms) ?>;
 
     if (!roomUsageData || roomUsageData.length === 0) {
-    console.error("No data available for the charts.");
-} else {
+        console.error("No data available for the charts.");
+    } else {
         const roomNames = roomUsageData.map(room => room.room_name);
         const totalHours = roomUsageData.map(room => room.total_hours);
 
