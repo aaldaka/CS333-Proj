@@ -3,7 +3,7 @@ session_start(); // Start the session
 
 // Ensure the user is logged in before accessing this page
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../config/login.php"); // Redirect to login page if not logged in
+    header("Location: ../config/login.php"); 
     exit();
 }
 
