@@ -39,13 +39,6 @@ try {
         redirectWithError("Booking failed: You cannot select a past date or time.", 'booking.php', $room_id, $room_name);
     }
 
-    // **VALIDATION: Ensure date is not a weekend**
-    $selected_date = strtotime($date);
-    $day_of_week = date('N', $selected_date); // 1 = Monday, 7 = Sunday
-    if ($day_of_week >= 6) { // Saturday (6) or Sunday (7)
-        redirectWithError("Booking failed: Bookings are not allowed on weekends.", 'booking.php', $room_id, $room_name);
-    }
-
     // Check if the room exists
     $stmt = $pdo->prepare("SELECT * FROM rooms WHERE room_id = :room_id");
     $stmt->bindParam(':room_id', $room_id, PDO::PARAM_INT);
