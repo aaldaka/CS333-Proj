@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2024 at 12:30 PM
+-- Generation Time: Dec 09, 2024 at 10:38 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -34,18 +34,6 @@ CREATE TABLE `admin_actions` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `admin_actions`
---
-
-INSERT INTO `admin_actions` (`action_id`, `admin_id`, `action_description`, `created_at`) VALUES
-(1, 3, 'Edited room with ID: 1', '2024-12-04 11:51:57'),
-(2, 3, 'Edited room with ID: 9', '2024-12-04 11:59:58'),
-(3, 3, 'Edited room with ID: 4', '2024-12-04 12:00:04'),
-(4, 3, 'Edited room with ID: 4', '2024-12-04 12:11:23'),
-(5, 3, 'Deleted room with ID: 4', '2024-12-04 12:13:49'),
-(6, 3, 'Added new room: 099', '2024-12-04 12:16:39');
-
 -- --------------------------------------------------------
 
 --
@@ -59,18 +47,31 @@ CREATE TABLE `bookings` (
   `start_time` datetime NOT NULL,
   `end_time` datetime NOT NULL,
   `duration` int(11) NOT NULL,
-  `duration` int(11) NOT NULL,
-  `status` enum('booked','cancelled') DEFAULT 'booked',
-  `date` date NOT NULL
-  `date` date NOT NULL
+  `status` enum('booked','cancelled') DEFAULT 'booked'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `bookings`
 --
 
-INSERT INTO `bookings` (`booking_id`, `user_id`, `room_id`, `start_time`, `end_time`, `duration`, `status`, `date`) VALUES
-(1, 2, 11, '2024-12-04 10:00:00', '2024-12-04 10:50:00', 50, 'booked', '0000-00-00');
+INSERT INTO `bookings` (`booking_id`, `user_id`, `room_id`, `start_time`, `end_time`, `duration`, `status`) VALUES
+(1, 3, 1, '2024-12-12 08:00:00', '2024-12-12 08:50:00', 50, 'cancelled'),
+(2, 3, 1, '2024-12-11 08:00:00', '2024-12-11 08:50:00', 50, 'cancelled'),
+(3, 3, 1, '2024-12-19 14:00:00', '2024-12-19 14:50:00', 50, 'cancelled'),
+(4, 3, 1, '2024-12-26 08:00:00', '2024-12-26 09:15:00', 75, 'booked'),
+(5, 3, 1, '2024-12-26 12:00:00', '2024-12-26 12:50:00', 50, 'booked'),
+(6, 3, 1, '2024-12-12 09:00:00', '2024-12-12 09:50:00', 50, 'booked'),
+(7, 3, 1, '2024-12-12 08:00:00', '2024-12-12 08:50:00', 50, 'booked'),
+(8, 3, 1, '2024-12-10 08:00:00', '2024-12-10 08:50:00', 50, 'cancelled'),
+(9, 3, 3, '2024-12-10 08:00:00', '2024-12-10 08:50:00', 50, 'booked'),
+(10, 3, 3, '2025-01-09 08:00:00', '2025-01-09 08:50:00', 50, 'booked'),
+(11, 3, 3, '2025-01-08 17:00:00', '2025-01-08 17:50:00', 50, 'booked'),
+(12, 3, 4, '2025-01-02 08:00:00', '2025-01-02 08:50:00', 50, 'booked'),
+(13, 3, 3, '2024-12-09 08:00:00', '2024-12-09 08:50:00', 50, 'booked'),
+(14, 3, 3, '2024-12-18 08:00:00', '2024-12-18 09:40:00', 100, 'booked'),
+(15, 3, 4, '2024-12-24 14:00:00', '2024-12-24 15:15:00', 75, 'booked'),
+(16, 3, 1, '2024-12-12 10:00:00', '2024-12-12 10:50:00', 50, 'booked'),
+(17, 3, 1, '2024-12-19 08:00:00', '2024-12-19 08:50:00', 50, 'cancelled');
 
 -- --------------------------------------------------------
 
@@ -91,8 +92,9 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`room_id`, `name`, `capacity`, `equipment`, `created_at`) VALUES
-(11, '097', 25, 'Projector', '2024-12-04 12:16:39'),
-(14, '005', 30, 'Projector, PCS', '2024-12-08 07:02:43');
+(1, '111', 23, 'Projector', '2024-12-03 15:41:08'),
+(3, '3', 90, 'Projector', '2024-12-04 09:42:05'),
+(4, '002', 23, 'SmartB', '2024-12-04 09:57:59');
 
 -- --------------------------------------------------------
 
@@ -107,13 +109,6 @@ CREATE TABLE `room_schedules` (
   `start_time` time NOT NULL,
   `end_time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `room_schedules`
---
-
-INSERT INTO `room_schedules` (`schedule_id`, `room_id`, `day_of_week`, `start_time`, `end_time`) VALUES
-(43, 14, 'Tuesday', '10:00:00', '16:00:00');
 
 -- --------------------------------------------------------
 
@@ -131,9 +126,6 @@ CREATE TABLE `users` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `gender` enum('Male','Female') DEFAULT NULL,
   `major` varchar(255) DEFAULT NULL
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `gender` enum('Male','Female') DEFAULT NULL,
-  `major` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -141,9 +133,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `profile_picture`, `user_type`, `created_at`, `gender`, `major`) VALUES
-(1, 'alya', '202200000@stu.uob.edu.bh', '$2y$10$qTlI7PRdXNWCIgdOrv1cE.wdoFMXqtvB7b9rInbs9MGV9M17GdQqm', 'default.jpg', 'user', '2024-12-04 11:25:44', NULL, NULL),
-(2, 'aa', '202200001@stu.uob.edu.bh', '$2y$10$ofxSVCgDf0EKgD2FwM/FzOD364dLfChshuMD0BmfnKgUMiJcF5Q8O', 'default.jpg', 'user', '2024-12-04 11:48:12', NULL, NULL),
-(3, 'admin1', '202200001@uob.edu.bh', '$2y$10$SK0X8LcXPu10/UCmqLq5Lep9K0uwKKHQDGEF5dyzqwbsoXYEeaPhW', 'default.jpg', 'admin', '2024-12-04 11:49:20', NULL, NULL);
+(1, 'Hawra Fadhel', '202212345@stu.uob.edu.bh', '$2y$10$SMcrfzIaudgWuzjKF20aLOrnygVWNp92gCa5T9nCjHF4t7pMLlF6i', '6755865486597-hhh.jpg', 'user', '2024-12-04 11:16:45', 'Female', 'Cybersecurity'),
+(2, 'alya', '202212345@uob.edu.bh', '$2y$10$sdaFAajMHNOhBWb4KfwPIOMEEBhuSTLjY18PTz7Mrhhd17AIfaQ4C', 'default.jpg', 'admin', '2024-12-08 14:26:07', 'Male', 'Information Systems'),
+(3, 'khaireya', '202208539@stu.uob.edu.bh', '$2y$10$9MiYD7ODyEc.wsAG2q0tRey8UGu3ftoKkWoiDVNKnB4nrJc7sCjfe', 'default.jpg', 'user', '2024-12-08 23:04:38', '', '');
 
 --
 -- Indexes for dumped tables
@@ -161,7 +153,6 @@ ALTER TABLE `admin_actions`
 --
 ALTER TABLE `bookings`
   ADD PRIMARY KEY (`booking_id`),
-  ADD UNIQUE KEY `room_id` (`room_id`),
   ADD KEY `user_id` (`user_id`);
 
 --
@@ -198,7 +189,7 @@ ALTER TABLE `admin_actions`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `rooms`
@@ -210,7 +201,7 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT for table `room_schedules`
 --
 ALTER TABLE `room_schedules`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
