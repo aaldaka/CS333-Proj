@@ -45,34 +45,52 @@ $stored_password = isset($_COOKIE['password']) ? $_COOKIE['password'] : '';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room Booking System - Login</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
     <link rel="stylesheet" href="LoginStyles.css">
-
 </head>
 <body>
     <div class="left-half">
         <div class="form-container">
-            <h1 style="color:black;">Welcome</h1>
-            <p style="color:gray;">Please enter your details</p>
+            <h1>Welcome Back</h1>
+            <p>Please enter your credentials</p>
+            
             <?php if ($error_message): ?>
                 <div class="alert"><?php echo $error_message; ?></div>
             <?php endif; ?>
+            
             <form action="" method="post">
-                <label for="email" style="color:black;">Email address</label>
-                <input type="email" id="email" name="email" placeholder="xxxxxxxx@stu.uob.edu.bh" value="<?php echo $stored_email; ?>" required>
-
-                <label for="password" style="color:black;">Password</label>
-                <input type="password" id="password" name="password" placeholder="Password" value="<?php echo $stored_password; ?>" required>
-                <div class="remember-forgot">
-                    <label class="small-text"  style="color: rgb(59,30,84);">
-                        <input type="checkbox" id="remember" name="remember"> Remember ME
-                    </label>
+                <div class="input-group">
+                    <label for="email">Email address</label>
+                    <input type="email" 
+                           id="email" 
+                           name="email" 
+                           placeholder="xxxxxxxx@stu.uob.edu.bh" 
+                           value="<?php echo htmlspecialchars($stored_email); ?>" 
+                           required>
                 </div>
-                <button type="submit" style="background-color: rgb(59,30,84);">Sign in</button>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" 
+                           id="password" 
+                           name="password" 
+                           placeholder="Enter your password" 
+                           value="<?php echo htmlspecialchars($stored_password); ?>" 
+                           required>
+                </div>
+
+                <div class="remember-forgot">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Remember me</label>
+                </div>
+
+                <button type="submit">Sign in</button>
+                
+                <p class="signup-text">Don't have an account? <a href="registration.php">Sign up</a></p>
             </form>
-            <p style="color:gray;">Don't have an account? <a href="registration.php" class="link">Sign up</a></p>
         </div>
     </div>
-    <div class="right-half"></div>
+    <div class="right-half">
+        <img src="loginpage.JPG" alt="Login Page Image">
+    </div>
 </body>
 </html>
