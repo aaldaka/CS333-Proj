@@ -78,7 +78,7 @@ $error_message = isset($_GET['error']) ? htmlspecialchars(urldecode($_GET['error
                 <option value="75" <?php if ($duration == 75) echo 'selected'; ?>>75 minutes</option>
                 <option value="100" <?php if ($duration == 100) echo 'selected'; ?>>100 minutes</option>
             </select>
-            <label for="start_time">Start Time</label>
+            <label for="start_time">Time Slots</label>
             <select name="start_time" id="start_time" required>
                 <!-- Time slots will be generated here dynamically -->
             </select>
