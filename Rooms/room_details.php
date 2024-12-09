@@ -21,7 +21,7 @@ function getAvailableSlotsForMultipleDays($room_id, $start_date, $end_date, $pdo
 
     // Loop through each day in the date range
     while ($current_date <= $end_date) {
-        $date = $current_date->format('Y-m-d');
+        $date = $current_date->format('d-m-Y');
 
         // Call the function to get available slots for this specific date
         $available_slots_for_days[$date] = getAvailableSlots($room_id, $date, $pdo);
