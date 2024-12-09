@@ -25,6 +25,10 @@ The Room Booking System is a web-based application designed for the IT College t
 - Make sure you create an account with the right access privileges "stu.uob.edu.bh" for students and "uob.edu.bh" for faculty.
 - Enjoy your booking trip!
 ## User Registration and Login
+- In the login.php script, user login authentication is processed by verifying input credentials, fetching user data from the database, and utilizing password_verify for password validation. Upon successful login, user IDs and types are stored in sessions, with an option to remember login credentials securely through cookies. Users are redirected to the home page post-login, while error messages are displayed for incorrect login attempts.
+
+- The registration.php script manages the registration process by validating user input fields, ensuring the correct format of UOB email addresses, and confirming password consistency. Valid input data is then hashed for password security using password_hash. The script also checks for existing email registrations in the database and provides appropriate error messages in case of issues. After successful registration, users are directed to the login page to access the room booking system.
+
 ## User Profile Management
 - In this project, I was responsible for developing the User Profile Management system for the web-based room booking system. My tasks included designing and implementing the user profile page, where users can view and edit their profile information, such as name, email, gender, major, and profile picture. I also created functionality for users to upload and manage their profile pictures.
 ## Room Browsing and Details
