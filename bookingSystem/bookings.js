@@ -88,38 +88,47 @@ function updateTimeSlots() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  // Add change event listener to the date input
-  document.getElementById('date').addEventListener('change', function () {
-      const selectedDate = new Date(this.value); // Get the selected date
-      const now = new Date(); // Get the current date and time
+function refreshTimeSlots() {
+  const selectedDate = new Date(document.getElementById('date').value); // Get the selected date
+  const now = new Date(); // Get the current date and time
 
-      const startTimeSelect = document.getElementById('start_time'); // Get the time dropdown
-      const options = startTimeSelect.options; // Get all time options
+  const startTimeSelect = document.getElementById('start_time'); // Get the time dropdown
+  const options = startTimeSelect.options; // Get all time options
 
+  // Get the duration in minutes (from the duration dropdown)
+  const duration = parseInt(document.getElementById('duration').value, 10); // e.g., 50, 75, 100, etc.
+
+  // **Step 1: Reset all options to be enabled**
+  for (let i = 0; i < options.length; i++) {
+      options[i].disabled = false; // Reset all options to enabled
+  }
+
+  // **Step 2: Only apply logic if the date is valid**
+  if (!isNaN(selectedDate)) {
       // Check if the selected date is today
       if (selectedDate.toDateString() === now.toDateString()) {
           // Loop through each time option
           for (let i = 0; i < options.length; i++) {
               const optionTime = new Date(`1970-01-01T${options[i].value}:00`); // Parse the time option
               const currentTime = new Date(`1970-01-01T${now.getHours()}:${now.getMinutes()}:00`); // Current time as a Date object
-              
-              // Disable options for past times
-              if (optionTime <= currentTime) {
-                  options[i].disabled = true; // Disable past options
-              } else {
-                  options[i].disabled = false; // Enable future options
+
+              // Calculate the end time of the selected slot based on the duration
+              const optionEndTime = new Date(optionTime.getTime() + duration * 60 * 1000); // Add duration in milliseconds
+
+              // Disable options for past times or those that don't fit the duration within the same day
+              if (optionTime <= currentTime || optionEndTime.getDate() > optionTime.getDate()) {
+                  options[i].disabled = true; // Disable past or invalid options
               }
           }
-      } else {
-          // If the date is not today, enable all time slots
-          for (let i = 0; i < options.length; i++) {
-              options[i].disabled = false; // Re-enable all options
-          }
       }
-  });
-});
+  }
+}
 
+// Add event listener to the date input
+document.getElementById('date').addEventListener('change', refreshTimeSlots);
+
+// Add event listener to the duration input
+document.getElementById('duration').addEventListener('change', refreshTimeSlots);
 //clear the error message everytime changing the input of time
 document.getElementById('date').addEventListener('change', () => {
   document.getElementById('error_message').style.display = 'none';
