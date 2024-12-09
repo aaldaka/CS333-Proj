@@ -93,7 +93,7 @@ try {
                                 echo "<td>
                                         <button disabled title='Cannot cancel bookings starting in the past' 
                                                 class='button is-light is-danger is-disabled'>
-                                            Cannot Cancel
+                                             Cancel
                                         </button>
                                       </td>";
                             } else {
