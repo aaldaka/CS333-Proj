@@ -1,75 +1,69 @@
 :root {
-    --background-color: rgb(207, 181, 230);
-    /* Deep Purple */
-    --primary-color: rgb(112, 66, 153);
-    /* Muted Purple */
-    --secondary-color: rgb(179, 132, 205);
-    /* Soft Lavender */
-    --accent-color: rgb(218, 182, 255);
-    /* Light Lavender */
-    --card-color: rgb(242, 232, 255);
-    /* Very Light Purple */
+    --background-color: rgb(207, 181, 230);  /* Light purple background */
+    --primary-color: rgb(112, 66, 153);      /* Deep purple for main elements */
+    --secondary-color: rgb(179, 132, 205);   /* Lighter purple for accents */
+    --accent-color: rgb(218, 182, 255);      /* Very light lavender for hover effects */
+    --card-color: rgb(242, 232, 255);        /* Very light purple for containers */
 }
 
 body {
     font-family: 'Roboto', sans-serif;
-    background: var(--background-color);
-    color: white;
+    background: var(--background-color);  /* Set background color */
+    color: white;                          /* White text for contrast */
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100vh;  /* Full viewport height */
 }
 
 main.container {
-    background: var(--card-color);
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    padding: 40px;
-    max-width: 500px;
+    background: var(--card-color);         /* Light card background */
+    border-radius: 12px;                   /* Rounded corners */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+    padding: 30px;
+    max-width: 400px;                      /* Limit container width */
     text-align: center;
     position: relative;
-    border: 3px solid var(--secondary-color);
+    border: 3px solid var(--secondary-color); /* Border with secondary color */
 }
 
 h1 {
-    color: var(--primary-color);
+    color: var(--primary-color);           /* Heading in primary color */
     margin-bottom: 20px;
     font-size: 2.4rem;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle text shadow */
 }
 
 img {
     border-radius: 50%;
     margin-bottom: 20px;
-    border: 5px solid var(--secondary-color);
+    border: 5px solid var(--secondary-color); /* Circular image with border */
 }
 
 p {
     margin: 15px 0;
     font-size: 1.1rem;
-    color: var(--primary-color);
+    color: var(--primary-color);           /* Paragraph text in primary color */
 }
 
 a.secondary {
-    background-color: var(--primary-color);
+    background-color: var(--primary-color); /* Button background */
     color: var(--card-color);
     padding: 12px 20px;
     border-radius: 8px;
     text-decoration: none;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.3s, transform 0.3s; /* Smooth hover effect */
     display: inline-block;
     margin-top: 20px;
 }
 
 a.secondary:hover {
-    background-color: var(--accent-color);
-    transform: scale(1.05);
+    background-color: var(--accent-color);  /* Change to accent color on hover */
+    transform: scale(1.05);                  /* Slightly enlarge on hover */
 }
 
-/* Adjusting the layout of the input fields */
 .input-group {
     display: flex;
     flex-wrap: wrap;
@@ -78,8 +72,7 @@ a.secondary:hover {
 }
 
 .input-group label {
-    width: 48%;
-    /* Two items per row with some space */
+    width: 48%; /* Two items per row with some space */
 }
 
 .input-group input,
@@ -101,7 +94,7 @@ form button {
     margin-top: 5px;
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--primary-color); /* Border for input fields */
     font-size: 1rem;
 }
 
@@ -115,18 +108,17 @@ form button {
 }
 
 form button:hover {
-    background-color: var(--accent-color);
+    background-color: var(--accent-color); /* Hover effect for button */
     transform: scale(1.05);
 }
 
-/* Sidebar Styling */
 .sidebar {
     position: fixed;
     top: 0;
-    left: -250px;  /* Initially off-screen */
+    left: -250px; /* Sidebar off-screen initially */
     height: 100%;
     width: 250px;
-    background-color: rgb(59, 30, 84);
+    background-color: rgb(59, 30, 84); /* Dark purple sidebar */
     color: white;
     transition: left 0.3s ease, box-shadow 0.3s ease;
     padding-top: 20px;
@@ -135,67 +127,66 @@ form button:hover {
     justify-content: center; /* Center items vertically */
     align-items: center;
     z-index: 1000;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Sidebar shadow */
     border-right: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  
-  .sidebar.open {
-    left: 0;
+}
+
+.sidebar.open {
+    left: 0; /* Make sidebar visible */
     box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
-  }
-  
-  .sidebar-header {
+}
+
+.sidebar-header {
     text-align: center;
     margin-bottom: 20px;
     padding: 10px;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  
-  .sidebar-header h2 {
+}
+
+.sidebar-header h2 {
     margin: 0;
     color: #D4BEE4;
     font-size: 1.5rem;
     font-weight: 600;
-  }
-  
-  .sidebar-links {
+}
+
+.sidebar-links {
     list-style-type: none;
     padding: 0;
     margin: 0;
     width: 100%;
-  }
-  
-  .sidebar-links li {
+}
+
+.sidebar-links li {
     width: 100%;
-    margin-bottom: 20px; /* Increased space between items */
-  }
-  
-  .sidebar-links li a {
+    margin-bottom: 20px; /* More space between links */
+}
+
+.sidebar-links li a {
     text-decoration: none;
     color: #D4BEE4;
     display: flex;
     align-items: center;
-    justify-content: center; /* Center items horizontally */
+    justify-content: center; /* Center the text inside links */
     padding: 15px;
     transition: background-color 0.3s ease, color 0.3s ease;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 1rem;
-  }
-  
-  .sidebar-links li a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-links li a:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Hover effect for sidebar links */
     color: #FFFFFF;
-  }
-  
-  .sidebar-links li a i {
+}
+
+.sidebar-links li a i {
     margin-right: 10px; /* Space between icon and text */
     font-size: 1.2rem;
-  }
-  
-  /* Styling for the Toggle Button */
-  .main-content .toggle-btn {
+}
+
+.main-content .toggle-btn {
     font-size: 30px;
     background: none;
     border: none;
@@ -207,4 +198,83 @@ form button:hover {
     z-index: 1100;
     padding: 15px;
     border-radius: 5px;
+}
+
+/* Media Queries for Responsiveness */
+
+/* Tablet View (768px - 1024px) */
+@media (max-width: 1024px) {
+    main.container {
+        max-width: 90%; /* Make container take 90% of the screen width */
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2rem; /* Adjust heading size */
+    }
+
+    .input-group label {
+        width: 48%; /* Keep two columns */
+    }
+
+    .sidebar {
+        width: 200px; /* Smaller sidebar */
+    }
+}
+
+/* Mobile View (480px - 768px) */
+@media (max-width: 768px) {
+    main.container {
+        max-width: 90%; /* Full width container */
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8rem; /* Slightly smaller heading */
+    }
+
+    .input-group {
+        flex-direction: column; /* Stack inputs vertically */
+        gap: 10px;
+    }
+
+    .sidebar {
+        width: 180px;
+        position: absolute;
+        top: 0;
+        left: -180px;  /* Off-screen by default */
+    }
+
+    .sidebar.open {
+        left: 0; /* Slide in when opened */
+    }
+
+    .sidebar-links li {
+        margin-bottom: 15px; /* Less space between items */
+    }
+}
+
+/* Mobile View (up to 480px) */
+@media (max-width: 480px) {
+    main.container {
+        max-width: 95%; /* Almost full width */
+        padding: 10px; /* Less padding */
+    }
+
+    h1 {
+        font-size: 1.5rem; /* Smaller font size */
+    }
+
+    .input-group label {
+        width: 100%; /* Full width for labels */
+    }
+
+    .sidebar {
+        width: 160px; /* Even smaller sidebar */
+    }
+
+    .sidebar-links li a {
+        padding: 10px; /* Less padding in links */
+        font-size: 0.9rem; /* Smaller font size for links */
+    }
 }
