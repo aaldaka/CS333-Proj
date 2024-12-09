@@ -72,8 +72,10 @@ try {
                         <?php foreach ($rooms as $room): ?>
                             <div class="room-box">
                                 <a href="room_details.php?room_id=<?php echo $room['room_id']; ?>" class="room-link">
-                                    <h2><?php echo htmlspecialchars($room['name']); ?></h2>
-                                    <p><strong>Capacity:</strong> <?php echo htmlspecialchars($room['capacity']); ?></p>
+                                    <h3><?php echo htmlspecialchars($room['name']); ?></h3>
+                                    <div class="capacity">
+                                        Capacity: <?php echo htmlspecialchars($room['capacity']); ?>
+                                    </div>
                                 </a>
                             </div>
                         <?php endforeach; ?>
