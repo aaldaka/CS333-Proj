@@ -29,6 +29,10 @@ if ($roomExists == 0) {
 $stmtDeleteBookings = $pdo->prepare("DELETE FROM bookings WHERE room_id = ?");
 $stmtDeleteBookings->execute([$roomId]);
 
+// Delete related schedules
+$stmtDeleteSchedules = $pdo->prepare("DELETE FROM room_schedules WHERE room_id = ?");
+$stmtDeleteSchedules->execute([$roomId]);
+
 // Delete the room from the database
 $stmtDeleteRoom = $pdo->prepare("DELETE FROM rooms WHERE room_id = ?");
 $stmtDeleteRoom->execute([$roomId]);
