@@ -173,9 +173,9 @@ if (isset($_GET['room_id'])) {
                         const dayOfWeek = selectedDate.getUTCDay(); // 5 = Friday, 6 = Saturday
 
                         // Prevent weekends (Friday = 5, Saturday = 6)
-                        if (dayOfWeek === 5 || dayOfWeek === 6) {
+                        if (dayOfWeek === 5 ) {
                             this.value = ''; // Clear the input
-                            alert('Bookings are not allowed on Fridays or Saturdays!');
+                            alert('Bookings are not allowed on Fridays!');
                         } else {
                             updateTimeSlots(); // Call updateTimeSlots if the date is valid
                         }
