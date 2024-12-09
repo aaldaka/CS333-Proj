@@ -56,43 +56,65 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <title>Room Booking System - Registration</title>
     <link rel="stylesheet" href="RegistrationStyles.css">
 </head>
 <body>
-    <main class="container">
-        <div class="grid">
-            <div class="col-4">
-                <div class="card">
-                    <h2 style="color:black;">User  Registration</h2>
+    <div class="form-container">
+        <h1>Create Account</h1>
+        <p>Join our room booking platform</p>
+        
+        <?php if (!empty($error_messages)): ?>
+            <?php foreach ($error_messages as $error): ?>
+                <div class="alert"><?php echo htmlspecialchars($error); ?></div>
+            <?php endforeach; ?>
+        <?php endif; ?>
 
-                    <?php foreach ($error_messages as $error): ?>
-                        <div class="alert"><?php echo $error; ?></div>
-                    <?php endforeach; ?>
-
-                    <?php if ($success_message): ?>
-                        <div class="success"><?php echo $success_message; ?></div>
-                    <?php endif; ?>
-
-                    <form method="post" action="">
-                        <label for="name" style="color:black;">Name:</label>
-                        <input type="text" name="name" required><br>
-
-                        <label for="email" style="color:black;">Email:</label>
-                        <input type="email" name="email" required><br>
-
-                        <label for="password" style="color:black;">Password:</label>
-                        <input type="password" name="password" required><br>
-
-                        <label for="confirm_password" style="color:black;">Confirm Password:</label>
-                        <input type="password" name="confirm_password" required><br>
-
-                        <input type="submit" value="Register" style="background-color: rgb(59,30,84);">
-                    </form>
-                </div>
+        <?php if ($success_message): ?>
+            <div class="success"><?php echo htmlspecialchars($success_message); ?></div>
+        <?php endif; ?>
+        
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <div class="input-group">
+                <label for="name">Full Name</label>
+                <input type="text" 
+                       id="name" 
+                       name="name" 
+                       placeholder="Enter your full name"
+                       value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>"
+                       required>
             </div>
-        </div>
-    </main>
+
+            <div class="input-group">
+                <label for="email">Email address</label>
+                <input type="email" 
+                       id="email" 
+                       name="email" 
+                       placeholder="xxxxxxxx@stu.uob.edu.bh"
+                       value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>"
+                       required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" 
+                       id="password" 
+                       name="password" 
+                       placeholder="Enter your password"
+                       required>
+            </div>
+
+            <div class="input-group">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" 
+                       id="confirm_password" 
+                       name="confirm_password" 
+                       placeholder="Confirm your password"
+                       required>
+            </div>
+
+            <button type="submit">Create Account</button>
+        </form>
+    </div>
 </body>
 </html>
