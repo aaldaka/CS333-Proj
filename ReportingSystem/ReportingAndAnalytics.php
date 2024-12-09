@@ -94,10 +94,31 @@ try {
 <head>
     <title>Reporting and Analytics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="Reporting.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <!-- Sidebar -->
+<div class="sidebar">
+    <ul class="sidebar-links">
+    <li><a href="../Rooms/home.php">HOME</a></li>
+        <li><a href="../Rooms/rooms.php">ROOMS</a></li>
+        <li><a href="../bookingSystem/booking_list.php">BOOKINGS</a></li>
+        <li><a href="../Profile/profile.php">PROFILE</a></li>
+        <!-- Only display Admin link if user_type is admin -->
+        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin'): ?>
+            <li><a href="../AdminFuncs/admin.php">ADMIN</a></li>
+        <?php endif; ?>
+        <li><a href="../LoginandRegistration/login.php">LOGOUT</a></li>
+    </ul>
+</div>
+
+<!-- Main Content -->
+<div class="main-content" id="mainContent">
+    <!-- Toggle Button -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()">&#9776;</button>
+</div>    
 <h2>Room Usage Summary</h2>
 
 <!-- creat the pie chart for the total hours and a bar chart for the number of booking -->
@@ -303,5 +324,11 @@ try {
     </tbody>
 </table>
 
+<script>
+    // JavaScript for toggle functionality
+    function toggleSidebar() {
+        document.querySelector('.sidebar').classList.toggle('open');
+    }
+</script>
 </body>
 </html>
