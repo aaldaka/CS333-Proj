@@ -190,7 +190,6 @@ function addSchedule() {
         if (data.success) {
             alert('Schedule added successfully!');
             location.reload();
-            // Optionally, you can update the page with the new schedule without reloading
         } else {
             alert('Failed to add schedule: ' + data.message);
         }
