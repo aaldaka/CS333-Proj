@@ -7,7 +7,7 @@ include 'booking_functions.php';
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
+    header('Location: ../config/login.php');
     exit();
 }
 
