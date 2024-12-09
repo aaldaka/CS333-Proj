@@ -5,7 +5,7 @@ session_start();
 
 // Redirect to login if user is not logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: ../LoginandRegistration/login.php");
     exit;
 }
 
@@ -43,13 +43,13 @@ try {
 <div class="sidebar">
     <ul class="sidebar-links">
         <li><a href="rooms.php">ROOMS</a></li>
-        <li><a href="bookings.php">BOOKINGS</a></li>
-        <li><a href="profile.php">PROFILE</a></li>
+        <li><a href="../bookingSystem/booking.php">BOOKINGS</a></li>
+        <li><a href="../Profile/profile.php">PROFILE</a></li>
         <!-- Only display Admin link if user_type is admin -->
         <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin'): ?>
-            <li><a href="admin.php">ADMIN</a></li>
+            <li><a href="../AdminFuncs/admin.php">ADMIN</a></li>
         <?php endif; ?>
-        <li><a href="login.php">LOGOUT</a></li>
+        <li><a href="../LoginandRegistration/login.php">LOGOUT</a></li>
     </ul>
 </div>
 
