@@ -96,21 +96,21 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="Reporting.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
 </head>
 <body>
-    <!-- Sidebar -->
+   <!-- Sidebar -->
 <div class="sidebar">
     <ul class="sidebar-links">
-    <li><a href="../Rooms/home.php">HOME</a></li>
-        <li><a href="../Rooms/rooms.php">ROOMS</a></li>
-        <li><a href="../bookingSystem/booking_list.php">BOOKINGS</a></li>
-        <li><a href="../Profile/profile.php">PROFILE</a></li>
+    <li><a href="../Rooms/home.php"><i class="fas fa-home"></i> HOME</a></li>
+    <li><a href="../Rooms/rooms.php"><i class="fas fa-door-open"></i> ROOMS</a></li>
+        <li><a href="../bookingSystem/booking_list.php"><i class="fas fa-calendar-check"></i> BOOKINGS</a></li>        <li><a href="../Profile/profile.php"><i class="fas fa-user"></i> PROFILE</a></li>
         <!-- Only display Admin link if user_type is admin -->
         <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin'): ?>
-            <li><a href="../AdminFuncs/admin.php">ADMIN</a></li>
+            <li><a href="../AdminFuncs/admin.php"><i class="fas fa-user-shield"></i> ADMIN</a></li>
         <?php endif; ?>
-        <li><a href="../LoginandRegistration/login.php">LOGOUT</a></li>
+        <li><a href="../LoginandRegistration/login.php"><i class="fas fa-sign-out-alt"></i> LOGOUT</a></li>
     </ul>
 </div>
 
