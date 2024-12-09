@@ -47,30 +47,8 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Bookings</title>
-    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
-    <style>
-        /* Additional styles for the Cancel button */
-        .cancel-button {
-            background-color: #ff6b6b; /* Soft red for cancel button */
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: background-color 0.2s ease-in-out;
-        }
-        .cancel-button:hover {
-            background-color: #e63946; /* Darker red on hover */
-        }
-        .cancel-button:focus {
-            outline: 2px solid #e63946;
-        }
-        /* Align buttons neatly inside the table */
-        table tbody td .cancel-button {
-            margin-left: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="bookings.css">
 </head>
 <body>
     <main class="container">
