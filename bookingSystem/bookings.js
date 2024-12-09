@@ -88,6 +88,38 @@ function updateTimeSlots() {
   }
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+  // Add change event listener to the date input
+  document.getElementById('date').addEventListener('change', function () {
+      const selectedDate = new Date(this.value); // Get the selected date
+      const now = new Date(); // Get the current date and time
+
+      const startTimeSelect = document.getElementById('start_time'); // Get the time dropdown
+      const options = startTimeSelect.options; // Get all time options
+
+      // Check if the selected date is today
+      if (selectedDate.toDateString() === now.toDateString()) {
+          // Loop through each time option
+          for (let i = 0; i < options.length; i++) {
+              const optionTime = new Date(`1970-01-01T${options[i].value}:00`); // Parse the time option
+              const currentTime = new Date(`1970-01-01T${now.getHours()}:${now.getMinutes()}:00`); // Current time as a Date object
+              
+              // Disable options for past times
+              if (optionTime <= currentTime) {
+                  options[i].disabled = true; // Disable past options
+              } else {
+                  options[i].disabled = false; // Enable future options
+              }
+          }
+      } else {
+          // If the date is not today, enable all time slots
+          for (let i = 0; i < options.length; i++) {
+              options[i].disabled = false; // Re-enable all options
+          }
+      }
+  });
+});
+
 //clear the error message everytime changing the input of time
 document.getElementById('date').addEventListener('change', () => {
   document.getElementById('error_message').style.display = 'none';
