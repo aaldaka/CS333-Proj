@@ -1,7 +1,7 @@
 <?php
 session_start();
 // Include necessary files
-include 'db_config.php';  // Include the database connection
+include '../config/db_config.php';  // Include the database connection
 include 'booking_functions.php';  // Include helper functions
 
 // Check if the user is logged in
