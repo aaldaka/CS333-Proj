@@ -39,7 +39,8 @@ try {
 <div class="sidebar">
     <ul class="sidebar-links">
     <li><a href="home.php">HOME</a></li>
-        <li><a href="../bookingSystem/booking.php">BOOKINGS</a></li>
+      <li><a href="../bookingSystem/booking_list.php">BOOKINGS</a></li>
+        <li><a href="../ReportingSystem/ReportingAndAnalytics.php">REPORTING</a></li>
         <li><a href="../Profile/profile.php">PROFILE</a></li>
         <!-- Only display Admin link if user_type is admin -->
         <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin'): ?>
