@@ -44,94 +44,105 @@ if (isset($_GET['room_id'])) {
     <link rel="stylesheet" href="styles2.css">
 
     <script>
-        // Admin-defined schedules from PHP
-        const roomSchedules = <?php echo $roomSchedulesJson; ?>;
-
-        // Function to dynamically update time slots based on admin schedules
-        function updateTimeSlots() {
-            const duration = parseInt(document.getElementById('duration').value); // Get selected duration
-            const startTimeSelect = document.getElementById('start_time');
-            const dateInput = document.getElementById('date');
-            const selectedDate = new Date(dateInput.value);
-
-            // Clear existing time slots
-            startTimeSelect.innerHTML = '';
-
-            // Get the day of the week (e.g., 'Monday')
-            const dayOfWeek = selectedDate.toLocaleString('en-US', { weekday: 'long' });
-
-            // Filter schedules for the selected day
-            const schedulesForDay = roomSchedules.filter(schedule => schedule.day_of_week === dayOfWeek);
-
-            // If schedules exist for this day, use them
-            if (schedulesForDay.length > 0) {
-                schedulesForDay.forEach(schedule => {
-                    const [startHour, startMinute] = schedule.start_time.split(':').map(Number);
-                    const [endHour, endMinute] = schedule.end_time.split(':').map(Number);
-
-                    let currentHour = startHour;
-                    let currentMinute = startMinute;
-
-                    while (currentHour < endHour || (currentHour === endHour && currentMinute < endMinute)) {
-                        // Calculate start time
-                        const startTime = `${String(currentHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')}`;
-
-                        // Calculate end time based on duration
-                        const endDateTime = new Date(1970, 0, 1, currentHour, currentMinute);
-                        endDateTime.setMinutes(endDateTime.getMinutes() + duration);
-                        const endTime = `${String(endDateTime.getHours()).padStart(2, '0')}:${String(endDateTime.getMinutes()).padStart(2, '0')}`;
-
-                        // Add option if the end time is within the schedule range
-                        if (
-                            endDateTime.getHours() < endHour ||
-                            (endDateTime.getHours() === endHour && endDateTime.getMinutes() <= endMinute)
-                        ) {
-                            const option = document.createElement('option');
-                            option.value = startTime;
-                            option.textContent = `${startTime} - ${endTime}`;
-                            startTimeSelect.appendChild(option);
-                        }
-
-                        // Move to the next slot
-                        currentMinute += 15;
-                        if (currentMinute >= 60) {
-                            currentMinute -= 60;
-                            currentHour++;
-                        }
-                    }
-                });
-            } else {
-                // Default time slot generation if no admin-defined schedules exist
-                const startHour = 8; // Default start at 8:00 AM
-                const endHour = 20; // Default end at 8:00 PM
+    // Admin-defined schedules from PHP
+    const roomSchedules = <?php echo $roomSchedulesJson; ?>;
+    // Function to dynamically update time slots
+    function updateTimeSlots() {
+        const duration = parseInt(document.getElementById('duration').value); // Get selected duration
+        const startTimeSelect = document.getElementById('start_time'); // Dropdown
+        const dateInput = document.getElementById('date'); // Date input
+        const selectedDate = new Date(dateInput.value); // Selected date
+        // Clear existing time slots
+        startTimeSelect.innerHTML = '';
+        // Define interval in minutes based on duration
+        let intervalMinutes = 0;
+        if (duration === 50) {
+            intervalMinutes = 60; // Treat 50 minutes as 1-hour intervals
+        } else if (duration === 75) {
+            intervalMinutes = 90; // Treat 75 minutes as 1.5-hour intervals
+        } else if (duration === 100) {
+            intervalMinutes = 120; // Treat 100 minutes as 2-hour intervals
+        }
+        // Get the day of the week (e.g., 'Monday')
+        const dayOfWeek = selectedDate.toLocaleString('en-US', { weekday: 'long' });
+        // DEBUG: Log selected day and room schedules
+        console.log('Selected Day:', dayOfWeek);
+        console.log('Room Schedules:', roomSchedules);
+        // Filter schedules for the selected day
+        const schedulesForDay = roomSchedules.filter(schedule => schedule.day_of_week === dayOfWeek);
+        // DEBUG: Log schedules for the selected day
+        console.log('Schedules for Day:', schedulesForDay);
+        // If there are admin-defined schedules for the day, use them
+        if (schedulesForDay.length > 0) {
+            schedulesForDay.forEach(schedule => {
+                const [startHour, startMinute] = schedule.start_time.split(':').map(Number); // Admin start time
+                const [endHour, endMinute] = schedule.end_time.split(':').map(Number); // Admin end time
                 let currentHour = startHour;
-                let currentMinute = 0;
-
-                while (currentHour < endHour || (currentHour === endHour && currentMinute < 60)) {
+                let currentMinute = startMinute;
+                while (currentHour < endHour || (currentHour === endHour && currentMinute < endMinute)) {
+                    // Calculate the start time in HH:MM format
                     const startTime = `${String(currentHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')}`;
-                    const endDateTime = new Date(1970, 0, 1, currentHour, currentMinute);
-                    endDateTime.setMinutes(endDateTime.getMinutes() + duration);
-
-                    const endTime = `${String(endDateTime.getHours()).padStart(2, '0')}:${String(endDateTime.getMinutes()).padStart(2, '0')}`;
-                    const option = document.createElement('option');
-                    option.value = startTime;
-                    option.textContent = `${startTime} - ${endTime}`;
-                    startTimeSelect.appendChild(option);
-
-                    currentMinute += 15;
+                    // Calculate the end time based on the interval
+                    const endTime = new Date(new Date(`1970-01-01T${startTime}:00`).getTime() + duration * 60000);
+                    const endTimeHour = endTime.getHours();
+                    const endTimeMinute = endTime.getMinutes();
+                    // Ensure end time is within the schedule range
+                    if (
+                        endTimeHour < endHour ||
+                        (endTimeHour === endHour && endTimeMinute <= endMinute)
+                    ) {
+                        // Convert start and end times to 12-hour format
+                        const startTimeDisplay = new Date(`1970-01-01T${startTime}:00`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+                        const endTimeDisplay = new Date(`1970-01-01T${String(endTimeHour).padStart(2, '0')}:${String(endTimeMinute).padStart(2, '0')}:00`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+                        // Generate the display string
+                        const totalTimeDisplay = `${startTimeDisplay} - ${endTimeDisplay}`;
+                        // Append the new option to the dropdown
+                        const option = document.createElement('option');
+                        option.value = startTime; // Use start time as the value
+                        option.textContent = totalTimeDisplay; // Display start-end time
+                        startTimeSelect.appendChild(option);
+                    }
+                    // Increment time by the interval
+                    currentMinute += intervalMinutes % 60; // Add remaining minutes
+                    currentHour += Math.floor(intervalMinutes / 60); // Add hours
                     if (currentMinute >= 60) {
                         currentMinute -= 60;
                         currentHour++;
                     }
                 }
-            }
-
-            // Show an error if no slots are available
-            if (startTimeSelect.options.length === 0) {
-                alert('No available time slots for the selected date.');
+            });
+        } else {
+            // If no admin-defined schedules exist for the day, use the default time range
+            console.log('No admin-defined schedules for this day. Using fallback.');
+            const startHour = 8; // Default start at 8:00 AM
+            const endHour = 20; // Default end at 8:00 PM
+            let currentHour = startHour;
+            let currentMinute = 0;
+            while (currentHour < endHour || (currentHour === endHour && currentMinute < 60)) {
+                // Calculate the start time
+                const startTime = `${String(currentHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')}`;
+                const endTime = new Date(new Date(`1970-01-01T${startTime}:00`).getTime() + duration * 60000);
+                // Convert start and end times to 12-hour format
+                const startTimeDisplay = new Date(`1970-01-01T${startTime}:00`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+                const endTimeDisplay = endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+                // Generate the display string
+                const totalTimeDisplay = `${startTimeDisplay} - ${endTimeDisplay}`;
+                // Append the new option to the dropdown
+                const option = document.createElement('option');
+                option.value = startTime; // Use start time as the value
+                option.textContent = totalTimeDisplay; // Display start-end time
+                startTimeSelect.appendChild(option);
+                // Increment time by the interval
+                currentMinute += intervalMinutes % 60; // Add remaining minutes
+                currentHour += Math.floor(intervalMinutes / 60); // Add hours
+                if (currentMinute >= 60) {
+                    currentMinute -= 60;
+                    currentHour++;
+                }
             }
         }
-    </script>
+    }
+</script>
 </head>
 <body>
     <main class="container">
