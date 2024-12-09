@@ -119,7 +119,7 @@ try {
     <!-- Toggle Button -->
     <button class="sidebar-toggle" onclick="toggleSidebar()">&#9776;</button>
 </div>    
-<h2>Room Usage Summary</h2>
+<h2 class="main">Room Usage Summary</h2>
 
 <!-- creat the pie chart for the total hours and a bar chart for the number of booking -->
 <div class="chart-container">
