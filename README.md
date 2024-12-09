@@ -31,7 +31,7 @@ The Room Booking System is a web-based application designed for the IT College t
 
 ## User Profile Management
 - In this project, I was responsible for developing the User Profile Management system for the web-based room booking system. My tasks included designing and implementing the user profile page, where users can view and edit their profile information, such as name, email, gender, major, and profile picture. I also created functionality for users to upload and manage their profile pictures.
-- Features
+- **Features**
 - **User Profile View**: Displays user information, including name, email, user type, gender, major, and profile picture.
 - **Edit Profile**: Allows users to update their personal information and upload a new profile picture.
 - **Responsive Design**: The interface is responsive, adapting to desktop, tablet, and mobile views.
