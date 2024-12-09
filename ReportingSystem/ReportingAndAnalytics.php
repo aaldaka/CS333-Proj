@@ -14,12 +14,12 @@ require '../config/db_config.php';
 $stmt = $pdo->prepare("SELECT 
         r.name AS room_name, 
         COUNT(b.booking_id) AS total_bookings, 
-        COALESCE(SUM(b.duration), 0) AS total_hours
+        COALESCE(SUM(b.duration), 0) AS total_min
     FROM rooms r
     LEFT JOIN bookings b ON r.room_id = b.room_id
     WHERE b.status = 'booked'
     GROUP BY r.room_id
-    ORDER BY total_hours DESC
+    ORDER BY total_min DESC
 ");
 
 try {
@@ -135,7 +135,7 @@ try {
         console.error("No data available for the charts.");
     } else {
         const roomNames = roomUsageData.map(room => room.room_name);
-        const totalHours = roomUsageData.map(room => room.total_hours);
+        const total_min = roomUsageData.map(room => room.total_min);
 
         const colors = [
             '#3B1E54',   // Dark purple
@@ -154,7 +154,7 @@ try {
                 labels: roomNames,
                 datasets: [{
                     label: 'Total Hours Booked',
-                    data: totalHours,
+                    data: total_min,
                     backgroundColor: backgroundColors,
                     borderColor: 'rgba(255, 255, 255, 1)',
                     borderWidth: 1
@@ -172,7 +172,7 @@ try {
                             label: function(context) {
                                 let total = context.dataset.data.reduce((sum, value) => sum + parseFloat(value), 0);
                                 let percentage = ((context.raw / total) * 100).toFixed(2);
-                                return `${context.label}: ${context.raw} hours (${percentage}%)`;
+                                return `${context.label}: ${context.raw} mins (${percentage}%)`;
                             }
                         }
                     }
@@ -248,7 +248,7 @@ try {
                 <tr>
                     <td><?= htmlspecialchars($room['room_name']) ?></td>
                     <td><?= htmlspecialchars($room['total_bookings']) ?></td>
-                    <td><?= htmlspecialchars($room['total_hours']) ?></td>
+                    <td><?= htmlspecialchars($room['total_min']) ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
