@@ -38,7 +38,7 @@ $profilePicture = !empty($user['profile_picture']) ? $user['profile_picture'] : 
     <ul class="sidebar-links">
         <li><a href="../Rooms/home.php">HOME</a></li>
         <li><a href="../Rooms/rooms.php">ROOMS</a></li>
-        <li><a href="../bookingSystem/bookings.php">BOOKINGS</a></li>
+        <li><a href="../bookingSystem/bookings_list.php">BOOKINGS</a></li>
         <li><a href="../ReportingSystem/ReportingAndAnalytics.php">REPORTING</a></li>
         <!-- Only display Admin link if user_type is admin -->
         <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin'): ?>
