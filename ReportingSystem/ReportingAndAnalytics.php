@@ -14,10 +14,9 @@ require '../config/db_config.php';
 $stmt = $pdo->prepare("SELECT 
         r.name AS room_name, 
         COUNT(b.booking_id) AS total_bookings, 
-        COALESCE(SUM(TIMESTAMPDIFF(HOUR, b.start_time, b.end_time)), 0) AS total_hours
+        COALESCE(SUM(TIMESTAMPDIFF(MINUTE, b.start_time, b.end_time)) / 60, 0) AS total_hours
     FROM rooms r
-    LEFT JOIN bookings b ON r.room_id = b.room_id
-    WHERE b.status = 'booked'
+    LEFT JOIN bookings b ON r.room_id = b.room_id AND b.status = 'booked'
     GROUP BY r.room_id
     ORDER BY total_hours DESC
 ");
