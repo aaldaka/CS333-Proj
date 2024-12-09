@@ -31,6 +31,7 @@ try {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
     <!-- Link to the external styles.css file --> 
     <link rel="stylesheet" href="../Rooms/styles2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
 </head>
 <body>
@@ -38,15 +39,15 @@ try {
 <!-- Sidebar -->
 <div class="sidebar">
     <ul class="sidebar-links">
-    <li><a href="home.php">HOME</a></li>
-      <li><a href="../bookingSystem/booking_list.php">BOOKINGS</a></li>
-        <li><a href="../ReportingSystem/ReportingAndAnalytics.php">REPORTING</a></li>
-        <li><a href="../Profile/profile.php">PROFILE</a></li>
+    <li><a href="home.php"><i class="fas fa-home"></i> HOME</a></li>
+    <li><a href="../bookingSystem/booking_list.php"><i class="fas fa-calendar-check"></i> BOOKINGS</a></li>
+        <li><a href="../ReportingSystem/ReportingAndAnalytics.php"><i class="fas fa-chart-line"></i> REPORTING</a></li>
+        <li><a href="../Profile/profile.php"><i class="fas fa-user"></i> PROFILE</a></li>
         <!-- Only display Admin link if user_type is admin -->
         <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin'): ?>
-            <li><a href="../AdminFuncs/admin.php">ADMIN</a></li>
+            <li><a href="../AdminFuncs/admin.php"><i class="fas fa-user-shield"></i> ADMIN</a></li>
         <?php endif; ?>
-        <li><a href="../LoginandRegistration/login.php">LOGOUT</a></li>
+        <li><a href="../LoginandRegistration/login.php"><i class="fas fa-sign-out-alt"></i> LOGOUT</a></li>
     </ul>
 </div>
 
