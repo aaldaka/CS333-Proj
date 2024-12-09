@@ -95,11 +95,22 @@ canvas {
     margin: auto;
 }
 
-h2{
+.main {
     text-align: center;
     color: #3B1E54;
-    font-style: italic;
     padding-top: 20px;
+    font-size: 30px;
+    font-weight: bold;    
+}
+
+h2 {
+    text-align: center;
+    color: #3B1E54;
+    padding-top: 20px;
+    font-size: 20px;
+    padding-bottom: 10px;
+    font-weight: bold;
+
 }
 
 /* Tables Styling */
@@ -137,6 +148,5 @@ h2{
 
 .table .no-data {
     text-align: center;
-    font-style: italic;
     color: #3B1E54;
 }
