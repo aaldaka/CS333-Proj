@@ -1,8 +1,8 @@
 /* Custom colors */
 :root {
   --background-color: rgb(226, 212, 239); /* Light Gray */
-  --primary-color: rgb(78, 40, 111); /* Custom primary button background */
-  --border-color: #2980b9; /* Custom primary border color */
+  --primary-color: rgb(162, 135, 186); /* primary button color */
+  --border-color: #2980b9; /* primary border color */
   --sidebar-bg: rgb(59, 30, 84); /* Sidebar background color */
   --sidebar-text: #D4BEE4; /* Sidebar text color */
   --text-color: #333333; /* Neutral Gray */
@@ -16,7 +16,6 @@ html, body {
   padding: 0;
   color: var(--text-color);
   height: 100%;
-  min-height: 100vh;
 }
 
 /* Headings */
@@ -25,79 +24,95 @@ h1, h2 {
   text-align: center;
   font-weight: bold;
   margin-bottom: 20px;
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 
+/* Paragraphs */
 p {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   margin: 10px 0;
   line-height: 1.6;
 }
 
-/* Sidebar Styling */
 .sidebar {
   position: fixed;
   top: 0;
-  left: -250px; /* Initially hidden */
+  left: -250px; /* Sidebar off-screen initially */
   height: 100%;
   width: 250px;
-  background-color: var(--sidebar-bg);
-  color: var(--sidebar-text);
-  transition: left 0.3s ease;
-  padding: 20px;
+  background-color: rgb(59, 30, 84); /* Dark purple sidebar */
+  color: white;
+  transition: left 0.3s ease, box-shadow 0.3s ease;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center; /* Center items vertically */
   align-items: center;
   z-index: 1000;
-  overflow-y: auto;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Sidebar shadow */
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .sidebar.open {
-  left: 0;
+  left: 0; /* Make sidebar visible */
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-header {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .sidebar-header h2 {
-  color: var(--sidebar-text);
-  margin-bottom: 20px;
+  margin: 0;
+  color: #D4BEE4;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .sidebar-links {
-  list-style: none;
+  list-style-type: none;
   padding: 0;
+  margin: 0;
   width: 100%;
 }
 
 .sidebar-links li {
-  margin: 10px 0;
+  width: 100%;
+  margin-bottom: 20px; /* More space between links */
 }
 
 .sidebar-links li a {
   text-decoration: none;
-  color: var(--sidebar-text);
-  display: block;
-  text-align: center;
-  padding: 10px;
-  border-radius: 5px;
-  transition: background 0.3s ease;
+  color: #D4BEE4;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the text inside links */
+  padding: 15px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1rem;
 }
 
 .sidebar-links li a:hover {
-  background: var(--primary-color);
-  color: white;
+  background-color: rgba(255, 255, 255, 0.1); /* Hover effect for sidebar links */
+  color: #FFFFFF;
 }
 
-/* Main Content and Toggle Button */
-.main-content {
-  margin-left: 250px; /* Space for sidebar */
-  transition: margin-left 0.3s ease;
+.sidebar-links li a i {
+  margin-right: 10px; /* Space between icon and text */
+  font-size: 1.2rem;
 }
 
 .main-content .toggle-btn {
   font-size: 30px;
   background: none;
   border: none;
-  color: var(--primary-color);
+  color: #9B7EBD;
   cursor: pointer;
   position: fixed;
   top: 20px;
@@ -107,20 +122,96 @@ p {
   border-radius: 5px;
 }
 
-/* For smaller screens */
-@media (max-width: 768px) {
+/* Media Queries for Responsiveness */
+
+/* Tablet View (768px - 1024px) */
+@media (max-width: 1024px) {
+  main.container {
+      max-width: 90%; /* Make container take 90% of the screen width */
+      padding: 20px;
+  }
+
+  h1 {
+      font-size: 2rem; /* Adjust heading size */
+  }
+
+  .input-group label {
+      width: 48%; /* Keep two columns */
+  }
+
   .sidebar {
-      left: -250px; /* Hide sidebar by default */
-  }
-  .sidebar.open {
-      left: 0; /* Show sidebar on toggle */
-  }
-  .main-content {
-      margin-left: 0; /* Full width when sidebar is hidden */
+      width: 200px; /* Smaller sidebar */
   }
 }
 
-/* Forms */
+/* Mobile View (480px - 768px) */
+@media (max-width: 768px) {
+  main.container {
+      max-width: 90%; /* Full width container */
+      padding: 15px;
+  }
+
+  h1 {
+      font-size: 1.8rem; /* Slightly smaller heading */
+  }
+
+  .input-group {
+      flex-direction: column; /* Stack inputs vertically */
+      gap: 10px;
+  }
+
+  .sidebar {
+      width: 180px;
+      position: absolute;
+      top: 0;
+      left: -180px;  /* Off-screen by default */
+  }
+
+  .sidebar.open {
+      left: 0; /* Slide in when opened */
+  }
+
+  .sidebar-links li {
+      margin-bottom: 15px; /* Less space between items */
+  }
+}
+
+/* Mobile View (up to 480px) */
+@media (max-width: 480px) {
+  main.container {
+      max-width: 95%; /* Almost full width */
+      padding: 10px; /* Less padding */
+  }
+
+  h1 {
+      font-size: 1.5rem; /* Smaller font size */
+  }
+
+  .input-group label {
+      width: 100%; /* Full width for labels */
+  }
+
+  .sidebar {
+      width: 160px; /* Even smaller sidebar */
+  }
+
+  .sidebar-links li a {
+      padding: 10px; /* Less padding in links */
+      font-size: 0.9rem; /* Smaller font size for links */
+  }
+}
+.main-content .toggle-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 250px; /* Space for sidebar */
+  transition: margin-left 0.3s ease;
+  padding: 20px;
+}
+
+/* Form Elements */
 form label {
   display: block;
   margin: 10px 0 5px;
@@ -145,21 +236,20 @@ form button {
   color: white;
   border: none;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 form button:hover {
   background: var(--border-color);
-  transform: scale(1.02);
+  transform: scale(1.05);
 }
 
-/* Tables */
+/* Table Styling */
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-  font-size: 1.2rem;
   background: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 table thead th {
@@ -167,49 +257,67 @@ table thead th {
   color: white;
   padding: 12px;
   text-align: left;
-  text-transform: uppercase;
 }
 
 table tbody td {
   border: 1px solid var(--border-color);
   padding: 10px;
   color: var(--text-color);
-  text-align: left;
-}
-
-.table th, .table td {
-  font-size: 18px; /* Apply smaller font size to table headers and cells */
-}
-
-/* Error Messages */
-.error-message {
-  color: #e63946; /* Bright Red */
-  font-weight: bold;
-  margin-top: 10px;
-  text-align: center;
 }
 
 /* Cancel Button Styling */
 .cancel-button {
-  background-color: #ff6b6b; /* Soft red for cancel button */
+  background-color: #ff6b6b;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 8px 15px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.2s ease-in-out;
 }
 
 .cancel-button:hover {
-  background-color: #e63946; /* Darker red on hover */
+  background-color: #e63946;
 }
 
-.cancel-button:focus {
-  outline: 2px solid #e63946;
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .main-content {
+    margin-left: 0;
+  }
+  .sidebar {
+    width: 200px;
+  }
+  .sidebar-header h2 {
+    font-size: 1.3rem;
+  }
 }
 
-/* Align buttons neatly inside the table */
-table tbody td .cancel-button {
-  margin-left: 10px;
+@media (max-width: 768px) {
+  .sidebar {
+    left: -200px;
+    width: 200px;
+  }
+  .sidebar.open {
+    left: 0;
+  }
+  .main-content {
+    margin-left: 0;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 100%;
+    left: -100%;
+  }
+  .sidebar.open {
+    left: 0;
+  }
+  .sidebar-links li a {
+    font-size: 0.9rem;
+  }
+  .main-content {
+    padding: 10px;
+  }
 }
