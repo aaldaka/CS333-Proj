@@ -238,7 +238,7 @@ try {
         <tr>
             <th>Room Name</th>
             <th>Total Bookings</th>
-            <th>Total Hours Booked</th>
+            <th>Total Minutes Booked</th>
         </tr>
     </thead>
     <tbody>
