@@ -21,13 +21,12 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #EEEEEE; /* Set background to light gray */
+    background-color: #E8E4F3; /* Muted light purple background */
     display: flex;
     justify-content: flex-start;
     align-items: stretch; /* Stretch content to fill the viewport */
     min-height: 15vh;
-    color: #92849c; /* Dark gray text */
-    
+    color: #1A0B2E; /* Very dark purple text */
 }
 
 /* Sidebar Styling */
@@ -123,7 +122,7 @@ body {
 
 /* Heading */
 h1 {
-    color: #9B7EBD; /* Purple color */
+    color: #2d0c4b; /* Deep royal purple */
     font-size: 2.25rem;
     margin-bottom: 30px;
 }
@@ -136,7 +135,7 @@ h1 {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     width: 1000px;
     max-width: 5000px; /* Max width for larger content */
-    background-color: #bbb1be; /* Optional, to make it stand out */
+    background-color: rgb(59, 30, 84); /* Clean white background */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add a shadow for visual effect */
 }
 
@@ -148,13 +147,13 @@ h1 {
 }
 
 .room-box {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+    background-color: #FFFFFF;
+    border: 1px solid #8B6BB2; /* Darker border */
     margin: 10px 0;
-    padding: 20px;
+    padding: 30px 40px; /* Increased padding */
     text-align: center;
     border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(45, 11, 90, 0.15);
     transition: transform 0.3s ease;
     cursor: pointer;
     max-width: 600px;
@@ -164,8 +163,37 @@ h1 {
 
 .room-box:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(45, 11, 90, 0.25);
 }
+
+/* New styles for room details */
+.room-box h3 {
+    font-size: 3.5rem; /* Larger room number */
+    color:  #6f467d;; /* Light purple for contrast */
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 800;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.room-box p {
+    font-size: 1.5rem;
+    color:  #6f467d; /* Softer purple for equipment text */
+    margin: 15px 0;
+}
+
+.room-box .capacity {
+    font-size: 2rem;
+    color: #6f467d; /* Bright purple */
+    font-weight: bold;
+    margin: 20px 0;
+    padding: 15px;
+    border-top: 2px solid #3f2e53;
+    border-bottom: 2px solid #443258;
+}
+
+
 
 /* Room Details */
 .room-details {
@@ -174,17 +202,18 @@ h1 {
     background-color: #ffffff; /* Make it white for contrast */
     border-radius: 8px; /* Optional, for rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add shadow for more depth */
+    border: 1px solid #8B6BB2;
 }
 
 .room-details h2 {
     font-size: 2em; /* Increase font size for headings */
     margin-bottom: 20px;
-    color: #633f6d;
+    color: #2D0B5A; /* Deep royal purple */
 }
 
 .room-details p {
     font-size: 1.2em; /* Increase font size for paragraphs */
-    color: #555;
+    color: #3B2559; /* Darker medium purple text */
 }
 
 /* Date Selection Form */
@@ -202,12 +231,18 @@ form input[type="date"] {
     font-size: 16px;
     margin-right: 10px;
     border-radius: 4px;
-    border: 1px solid #ddd;
+    border: 1px solid #8B6BB2;
+}
+
+form input[type="date"]:focus {
+    border-color: #2D0B5A;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(45, 11, 90, 0.2);
 }
 
 form button {
-    background-color: #782574;
-    color: white;
+    background-color: #2D0B5A; /* Deep royal purple */
+    color: #FFFFFF;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
@@ -215,7 +250,7 @@ form button {
 }
 
 form button:hover {
-    background-color: #45a049;
+    background-color: #3D1C6B; /* Rich hover purple */
 }
 
 /* Container for time slots */
@@ -231,18 +266,20 @@ form button:hover {
 }
 /* Individual timeslot styling */
 .timeslot {
-    background-color: #f0f0f0;
+    background-color: #F0EBF7; /* Soft light purple */
     padding: 5px 10px;
     border-radius: 5px;
     margin: 5px 0;
     text-align: center;
     font-size: 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #8B6BB2;
+    color: #1A0B2E;
 }
 
 .timeslot:hover {
-    background-color: #cabcbc;
-    cursor: pointer;
+    background-color: #D8CCEB; /* Darker hover state */
+    border-color: #6B4C9A; /* Deep medium purple */
 }
 
 /* Adjustments for when there are no slots */
@@ -254,9 +291,9 @@ form button:hover {
 
 /* Error Messages */
 .error-message {
-    background-color: #ffebee;
-    color: #e57373;
-    border: 1px solid #f44336;
+    background-color: #F5E6FF; /* Soft error background */
+    color: #6B238E; /* Dark error purple */
+    border: 1px solid #9B4DCA; /* Rich error border */
     padding: 10px;
     border-radius: 4px;
     font-size: 1em;
@@ -267,9 +304,9 @@ form button:hover {
 .button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: rgb(59, 30, 84); /* Dark purple */
+    background-color: #2D0B5A; /* Deep royal purple */
     text-align: center;
-    color: white;
+    color: #FFFFFF;
     border-radius: 4px;
     text-decoration: none;
     margin-top: 15px;
@@ -278,7 +315,7 @@ form button:hover {
 }
 
 .button:hover {
-    background-color: rgb(155, 126, 189); /* Lighter purple on hover */
+    background-color: #6A1B9A; /* Lighter purple on hover */
 }
 
 /* Mobile Styles */
@@ -298,7 +335,7 @@ form button:hover {
 }
 
 /* Tablet Styles */
-@media screen and (max-width: 480px) {
+@media screen and (min-width: 481px) and (max-width: 1024px) {
     .main-content {
         padding: 15px;
     }
@@ -328,4 +365,3 @@ form button:hover {
         padding: 12px 20px;
     }
 }
-
