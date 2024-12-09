@@ -1,6 +1,14 @@
 <?php
 session_start();
 include '../config/db_config.php';
+
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to the login page if not logged in
+    header("Location: ../config/login.php");
+    exit();
+}
+
 // Ensure room_id is provided
 if (isset($_GET['room_id'])) {
     $room_id = $_GET['room_id'];
