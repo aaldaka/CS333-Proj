@@ -21,7 +21,7 @@ function getAvailableSlotsForMultipleDays($room_id, $start_date, $end_date, $pdo
 
     // Loop through each day in the date range
     while ($current_date <= $end_date) {
-        $date = $current_date->format('d-m-Y');
+        $date = $current_date->format('Y-m-d');
 
         // Call the function to get available slots for this specific date
         $available_slots_for_days[$date] = getAvailableSlots($room_id, $date, $pdo);
@@ -216,14 +216,19 @@ if (isset($_GET['room_id'])) {
                     <!-- Date Selection Form -->
                     <h3>Select Dates to View Available Slots</h3>
                     <form method="POST" action="room_details.php?room_id=<?php echo $room_id; ?>">
-                        <label for="start_date">Start Date:</label>
-                        <input type="date" id="start_date" name="start_date" required value="<?php echo $start_date; ?>">
+                        <div class="date-inputs-container">
+                            <div class="date-input-group">
+                                <label for="start_date">Start Date:</label>
+                                <input type="date" id="start_date" name="start_date" required value="<?php echo $start_date; ?>">
+                            </div>
 
-                        <label for="end_date">End Date:</label>
-                        <input type="date" id="end_date" name="end_date" required value="<?php echo $end_date; ?>">
+                            <div class="date-input-group">
+                                <label for="end_date">End Date:</label>
+                                <input type="date" id="end_date" name="end_date" required value="<?php echo $end_date; ?>">
+                            </div>
+                        </div>
 
-                        <br>
-                        <button type="submit" href="rooms.php" class="button">View Available Slots</button>
+                        <button type="submit" class="button">View Available Slots</button>
                     </form>
 
                     <h3>Available Timeslots from <?php echo $start_date; ?> to <?php echo $end_date; ?></h3>
