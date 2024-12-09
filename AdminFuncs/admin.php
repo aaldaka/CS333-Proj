@@ -57,6 +57,7 @@ $adminLogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <li><a href="../Rooms/home.php"><i class='bx bxs-home-smile'></i>HOME</a></li>
         <li><a href="../Rooms/rooms.php">ROOMS</a></li>
         <li><a href="../bookingSystem/bookings.php">BOOKINGS</a></li>
+        <li><a href="../ReportingSystem/ReportingAndAnalytics.php">REPORTING</a></li>
         <li><a href="../Profile/profile.php">PROFILE</a></li>
         <li><a href="../LoginandRegister/login.php">LOGOUT</a></li>
     </ul>
