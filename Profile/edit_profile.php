@@ -37,7 +37,7 @@ $majors = ['Computer Science', 'Information Systems', 'Network Engineering', 'Cy
     <ul class="sidebar-links">
     <li><a href="../Rooms/home.php">HOME</a></li>
         <li><a href="../Rooms/rooms.php">ROOMS</a></li>
-        <li><a href="../bookingSystem/bookings.php">BOOKINGS</a></li>
+        <li><a href="../bookingSystem/booking_list.php">BOOKINGS</a></li>
         <li><a href="../ReportingSystem/ReportingAndAnalytics.php">REPORTING</a></li>
         <li><a href="profile.php">PROFILE</a></li>
         <!-- Only display Admin link if user_type is admin -->
