@@ -3,7 +3,7 @@ require '../config/db_config.php';
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../config/login.php");
+    header("Location: ../LoginandRegistration/login.php");
     exit();
 }
 
@@ -35,15 +35,16 @@ $majors = ['Computer Science', 'Information Systems', 'Network Engineering', 'Cy
 <body>
 <div class="sidebar">
     <ul class="sidebar-links">
-        <li><a href="../config/home.php">HOME</a></li>
-        <li><a href="../config/rooms.php">ROOMS</a></li>
-        <li><a href="../config/bookings.php">BOOKINGS</a></li>
+    <li><a href="../Rooms/home.php">HOME</a></li>
+        <li><a href="../Rooms/rooms.php">ROOMS</a></li>
+        <li><a href="../bookingSystem/bookings.php">BOOKINGS</a></li>
+        <li><a href="../ReportingSystem/ReportingAndAnalytics.php">REPORTING</a></li>
         <li><a href="profile.php">PROFILE</a></li>
         <!-- Only display Admin link if user_type is admin -->
         <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin'): ?>
-            <li><a href="../config/admin.php">ADMIN</a></li>
+            <li><a href="../AdminFuncs/admin.php">ADMIN</a></li>
         <?php endif; ?>
-        <li><a href="../config/login.php">LOGOUT</a></li>
+        <li><a href="../LoginandRegistration/login.php">LOGOUT</a></li>
     </ul>
 </div>
 
