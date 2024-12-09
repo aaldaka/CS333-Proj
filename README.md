@@ -37,8 +37,8 @@ The Room Booking System is a web-based application designed for the IT College t
 - At each room that will incload the components that inside each room and display only the available rooms.
 - List the all availabe slots that take the data for it from the database schedules and when we don't find it that will set as defult for booking rooms.
 ## Booking System
-- I had to implement a full booking system, where I focused on allowing users to make bookings easily and efficiently and store then in MySQL database.
-- Designed the system to handle user inputs, like selecting dates and times. Moreover, ensured the data was stored correctly and  ensures valid user booking with functionalieties such as checking foor rooms availability and user conflicts.
+- I had to implement a full booking system, where I focused on allowing users to make bookings easily and efficiently and store them in MySQL database.
+- Designed the system to handle user inputs, like selecting dates and times. Moreover, ensured the data was stored correctly and  ensured valid user booking with functionalities such as checking for room availability and user conflicts.
 - A cancel feature was implemented so users can cancel their upcoming bookings easily!
 ## Admin Panel
 - In my part, I was responsible for ensuring the logged in user was indeed an admin/faculty member.
