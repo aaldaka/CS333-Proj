@@ -54,16 +54,17 @@ $adminLogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <div class="sidebar">
     <ul class="sidebar-links">
-        <li><a href="home.php"><i class='bx bxs-home-smile'></i>HOME</a></li>
-        <li><a href="rooms.php">ROOMS</a></li>
-        <li><a href="bookings.php">BOOKINGS</a></li>
-        <li><a href="profile.php">PROFILE</a></li>
-        <li><a href="login.php">LOGOUT</a></li>
+        <li><a href="../Rooms/home.php"><i class='bx bxs-home-smile'></i>HOME</a></li>
+        <li><a href="../Rooms/rooms.php">ROOMS</a></li>
+        <li><a href="../bookingSystem/bookings.php">BOOKINGS</a></li>
+        <li><a href="../Profile/profile.php">PROFILE</a></li>
+        <li><a href="../LoginandRegister/login.php">LOGOUT</a></li>
         <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin'): ?>
-            <li><a href="AdminFuncs/admin.php">ADMIN</a></li>
+            <li><a href="admin.php">ADMIN</a></li>
         <?php endif; ?>
     </ul>
 </div>
+
 
 <div class="main-content" id="mainContent">
     <button class="toggle-btn" onclick="toggleSidebar()">&#9776;</button>
