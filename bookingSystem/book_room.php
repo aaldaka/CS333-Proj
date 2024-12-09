@@ -1,9 +1,8 @@
 <?php
 session_start();
 // Include necessary files
-include '../config/db_config.php';  // Include the database connection
-include 'booking_functions.php';  // Include helper functions
-
+include '../config/db_config.php'; 
+include 'booking_functions.php';  
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../config/login.php');
@@ -31,13 +30,13 @@ try {
     // Calculate the end time based on the duration
     $end_time = date('Y-m-d H:i:s', strtotime($start_datetime . ' + ' . $duration . ' minutes'));
 
-    // Get the current date and time
-    $current_datetime = new DateTime();
-    $current_datetime->setTime($current_datetime->format('H'), 0, 0); // Round to the start of the current hour
+    // Get the current full date and time
+    $current_datetime = new DateTime(); // Current date and time
 
+    // Create a DateTime object from the user-selected start_datetime
     $start_datetime_obj = new DateTime($start_datetime);
 
-    // **Validation: Prevent past bookings**
+    // Validation: Prevent past bookings
     if ($start_datetime_obj <= $current_datetime) {
         redirectWithError("Booking failed: You cannot select a past date or time.", 'booking.php', $room_id, $room_name);
     }
@@ -82,9 +81,7 @@ try {
     redirectWithError('Booking failed: ' . $e->getMessage(), 'booking.php', $room_id, $room_name);
 }
 
-/**
- * Redirects to a specified page with an error message
- */
+// Redirects to a specified page with an error message
 function redirectWithError($message, $location, $room_id = null, $room_name = null) {
     // Store the error message as a URL parameter
     $error_message = urlencode($message);
