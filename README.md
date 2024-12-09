@@ -47,6 +47,6 @@ The Room Booking System is a web-based application designed for the IT College t
 ## Reporting and Analytics
 I developed a Reporting and Analytics system to provide general view into room usage and booking trends. The system includes visualizations such as a pie chart displaying total hours for each room and a bar chart showing total bookings per room, displayd using JavaScript and designed using CSS and powered by SQL queries for retrieving data from booking and room tables in the database. It also displays detailed room information, including the room name, total bookings, and total minutes booked. Additionally, users can view past and upcoming bookings in a table format, showing booking ID, room name, start time, and end time, with data integrated using PHP and styled via an external CSS file.
 ## Additional Concepts
-- The use of Javascript
+- We used Bulma framework for CSS, and utilized JavaScript to serve different purposes in our project, such as calculation, display, alerts, and toggles.
 ## Conclusion
 The Room Booking System simplifies room reservations with features like real-time analytics, secure user accounts, and role-based access. It offers a clear and easy-to-use interface, and ensures smooth booking management. 
