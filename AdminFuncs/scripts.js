@@ -28,6 +28,7 @@ function addRoom() {
         .then(data => {
             if (data.success) {
                 alert("Room added successfully!");
+                location.reload()
                 newRow.innerHTML = `
                     <td>${name}</td>
                     <td>${capacity}</td>
