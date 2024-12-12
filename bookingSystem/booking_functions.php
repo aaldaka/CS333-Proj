@@ -25,30 +25,24 @@ function checkRoomAvailability($pdo, $room_id, $start_datetime, $end_time) {
   return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 // Function to book a room
-function bookRoom($pdo, $user_id, $room_id, $start_time, $duration) {
-  echo "Raw User Input: <br>";
-    echo "Start Time (user input) = $start_time<br>";
-    echo "Duration = $duration minutes<br>";
-    // Calculate the end time based on the duration (in minutes)
-    $end_time = date('Y-m-d H:i:s', strtotime($start_time . ' + ' . $duration . ' minutes'));
-    // Insert the booking into the database
-    $insert_query = "INSERT INTO bookings (user_id, room_id, start_time, end_time, duration, status, date) 
-                     VALUES (:user_id, :room_id, :start_time, :end_time, :duration, 'booked', :date)";
+// function bookRoom($pdo, $user_id, $room_id, $start_time, $duration) {
+//     // Calculate the end time based on the duration (in minutes)
+//     $end_time = date('Y-m-d H:i:s', strtotime($start_time . ' + ' . $duration . ' minutes'));
+//     // Insert the booking into the database
+//     $insert_query = "INSERT INTO bookings (user_id, room_id, start_time, end_time, duration, status, date) 
+//                      VALUES (:user_id, :room_id, :start_time, :end_time, :duration, 'booked', :date)";
     
-    $stmt = $pdo->prepare($insert_query);
-    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-    $stmt->bindParam(':room_id', $room_id, PDO::PARAM_INT);
-    $stmt->bindParam(':start_time', $start_time, PDO::PARAM_STR);
-    $stmt->bindParam(':end_time', $end_time, PDO::PARAM_STR);
-    $stmt->bindParam(':duration', $duration, PDO::PARAM_INT);
-    echo "Raw User Input: <br>";
-    echo "Start Time (user input) = $start_time<br>";
-    echo "Duration = $duration minutes<br>";
+//     $stmt = $pdo->prepare($insert_query);
+//     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+//     $stmt->bindParam(':room_id', $room_id, PDO::PARAM_INT);
+//     $stmt->bindParam(':start_time', $start_time, PDO::PARAM_STR);
+//     $stmt->bindParam(':end_time', $end_time, PDO::PARAM_STR);
+//     $stmt->bindParam(':duration', $duration, PDO::PARAM_INT);
     
-    if ($stmt->execute()) {
-        return "Booking successful!";
-    } else {
-        return "Error: " . implode(", ", $stmt->errorInfo());
-    }
-}
+//     if ($stmt->execute()) {
+//         return "Booking successful!";
+//     } else {
+//         return "Error: " . implode(", ", $stmt->errorInfo());
+//     }
+// }
 ?>
